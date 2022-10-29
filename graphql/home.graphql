@@ -1,0 +1,14 @@
+query home {
+  entries {
+    id
+    ... on home_home_Entry {
+      id
+      fieldContentBuilder {
+        ... on fieldContentBuilder_typeText_BlockType {
+          id
+          itemText
+        }
+      }
+    }
+  }
+}
