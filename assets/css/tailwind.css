@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    /* font-family: 'Proxima Nova Rg', sans-serif; */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5,
+  .h6 {
+    @apply mt-[1.2em] mb-[0.7em] first:mt-0;
+  }
+
+  textarea::-webkit-scrollbar {
+    @apply hidden;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto w-full max-w-container px-8;
+  }
+
+  .default-grid {
+    @apply grid grid-cols-12 gap-8;
+  }
+}
+
+@layer utilities {
+}
