@@ -2,10 +2,8 @@
 
 <template>
   <div class="min-h-screen flex flex-col">
-    <TheHeader />
+    <LayoutTheHeader />
     <slot />
-    <TheFooter />
+    <LayoutTheFooter />
   </div>
 </template>
-
-<style scoped></style>
