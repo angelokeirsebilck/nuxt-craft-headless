@@ -20,8 +20,8 @@ export default defineNuxtConfig({
         documentPaths: ["./graphql/"],
         clients: {
           default: {
-            host: "https://test.headless.boawebdesign.be/api",
-            token: "tAexk1_cXgXaO3s-yYm3ApTBosQ_PdWW",
+            host: process.env.NUXT_CRAFT_CMS_GRAPHQL_ENDPOINT || "",
+            token: process.env.NUXT_CRAFT_CMS_GRAPHQL_TOKEN || "",
             // retainToken: process.env.RETAIN_TOKEN === "true" || false,
           },
         },
