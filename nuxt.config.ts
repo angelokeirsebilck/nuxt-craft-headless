@@ -2,21 +2,21 @@ import { resolve } from "path";
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  modules: ["@nuxtjs/tailwindcss", "nuxt-graphql-client"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "nuxt-graphql-client",
+    ["@pinia/nuxt", { autoImports: ["defineStore"] }],
+  ],
   runtimeConfig: {
     // The private keys which are only available server-side
-    CRAFT_CMS_GRAPHQL_ENDPOINT: "http://craft-headless-nuxt.ddev.site/api",
-    CRAFT_CMS_GRAPHQL_TOKEN: "tAexk1_cXgXaO3s-yYm3ApTBosQ_PdWW",
+    CRAFT_CMS_GRAPHQL_ENDPOINT: process.env.CRAFT_CMS_GRAPHQL_ENDPOINT,
+    CRAFT_CMS_GRAPHQL_TOKEN: process.env.CRAFT_CMS_GRAPHQL_TOKEN,
+
     // Keys within public are also exposed client-side
     public: {
-      CRAFT_CMS_GRAPHQL_ENDPOINT: "http://craft-headless-nuxt.ddev.site/api",
-      CRAFT_CMS_GRAPHQL_TOKEN: "tAexk1_cXgXaO3s-yYm3ApTBosQ_PdWW",
+      CRAFT_CMS_GRAPHQL_ENDPOINT: process.env.CRAFT_CMS_GRAPHQL_ENDPOINT,
+      CRAFT_CMS_GRAPHQL_TOKEN: process.env.CRAFT_CMS_GRAPHQL_TOKEN,
       "graphql-client": {
-        watch: true,
-        silent: true,
-        autoImport: true,
-        functionPrefix: "Gql",
-        onlyOperationTypes: true,
         documentPaths: ["./graphql/"],
         clients: {
           default: {

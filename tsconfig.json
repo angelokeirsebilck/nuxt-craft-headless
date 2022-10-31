@@ -2,9 +2,10 @@
   // https://v3.nuxtjs.org/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@graphql/*": ["graphql/*"]
-    }
+    // "baseUrl": ".",
+    // "paths": {
+    //   "@graphql/*": ["graphql/*"],
+    //   "@store/*": ["stores/*"]
+    // }
   }
 }

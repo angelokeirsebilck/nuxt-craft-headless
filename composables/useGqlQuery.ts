@@ -1,4 +1,5 @@
 interface IGraphqlQuery {
+  key: string;
   query: string;
   routeQuery?: {
     [key: string]: string | string[];
@@ -19,7 +20,8 @@ interface ITransform {
 }
 
 export const useGraphqlQuery = (params: IGraphqlQuery) => {
-  const runtimeConfig = useRuntimeConfig();
+  const { CRAFT_CMS_GRAPHQL_ENDPOINT, CRAFT_CMS_GRAPHQL_TOKEN } =
+    useRuntimeConfig();
 
   const {
     preview,
@@ -30,8 +32,8 @@ export const useGraphqlQuery = (params: IGraphqlQuery) => {
 
   const apiUrl =
     preview && token
-      ? `${runtimeConfig.CRAFT_CMS_GRAPHQL_ENDPOINT}?token=${token}`
-      : runtimeConfig.CRAFT_CMS_GRAPHQL_ENDPOINT;
+      ? `${CRAFT_CMS_GRAPHQL_ENDPOINT}?token=${token}`
+      : CRAFT_CMS_GRAPHQL_ENDPOINT;
   const customHeaders: ICustomHeaders = {};
 
   // If Live Preview
@@ -43,8 +45,23 @@ export const useGraphqlQuery = (params: IGraphqlQuery) => {
   if (preview && xCraftPreview) {
     customHeaders["x-craft-preview"] = xCraftPreview;
   }
+  console.log(apiUrl);
+
+  // return $fetch(apiUrl, {
+  //   method: "POST",
+  //   body: {
+  //     query: params.query,
+  //     variables: params.variables || null,
+  //   },
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Bearer ${CRAFT_CMS_GRAPHQL_TOKEN}`,
+  //     ...customHeaders,
+  //   },
+  // });
 
   return useFetch(apiUrl, {
+    key: params.key,
     method: "POST",
     body: {
       query: params.query,
@@ -52,8 +69,23 @@ export const useGraphqlQuery = (params: IGraphqlQuery) => {
     },
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${runtimeConfig.CRAFT_CMS_GRAPHQL_TOKEN}`,
+      Authorization: `Bearer ${CRAFT_CMS_GRAPHQL_TOKEN}`,
       ...customHeaders,
     },
   });
+
+  // return useAsyncData(`${token}`, () =>
+  //   $fetch(apiUrl, {
+  //     method: "POST",
+  //     body: {
+  //       query: params.query,
+  //       variables: params.variables || null,
+  //     },
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${CRAFT_CMS_GRAPHQL_TOKEN}`,
+  //       ...customHeaders,
+  //     },
+  //   })
+  // );
 };
