@@ -4,7 +4,6 @@ import { resolve } from "path";
 export default defineNuxtConfig({
   modules: [
     "@nuxtjs/tailwindcss",
-    "nuxt-graphql-client",
     ["@pinia/nuxt", { autoImports: ["defineStore"] }],
   ],
   runtimeConfig: {
