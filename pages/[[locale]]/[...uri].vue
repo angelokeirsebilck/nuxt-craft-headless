@@ -215,6 +215,6 @@ if (pageInfo == null) {
   });
 }
 
-siteStore.addMainNavigation(mainNav.value.data.globalSet.fieldMainNav);
+siteStore.addMainNavigation(mainNav?.value?.data?.globalSet?.fieldMainNav);
 siteStore.addLocale(currentSite.language);
 </script>
