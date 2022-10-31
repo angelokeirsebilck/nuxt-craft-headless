@@ -23,6 +23,7 @@
 <script setup lang="ts">
 import { entryQuery } from "@/graphql/entry.gql";
 import { categoryQuery } from "@/graphql/category.gql";
+import { mainNavQuery } from "@/graphql/nav/mainnav.gql";
 
 import { useSiteStore } from "~/stores/useSiteStore";
 const siteStore = useSiteStore();
@@ -118,6 +119,15 @@ const pageInfo = computed(() => {
   return null;
 });
 
+const { data: mainNav } = await useGraphqlQuery({
+  key: "mainNav",
+  query: mainNavQuery,
+  routeQuery: {},
+  variables: {
+    siteId: currentSite.siteId,
+  },
+});
+
 // const pageInfo = entry.value.data.entry || category.value.data.category || null;
 
 // const { data: category } = await useFetch(
@@ -187,15 +197,15 @@ const pageInfo = computed(() => {
 // const pageInfo = entry.value.entry || category.value.category || null;
 
 // Get Navigation
-const {
-  data: {
-    value: {
-      globalSet: { fieldMainNav },
-    },
-  },
-} = await useAsyncGql("mainNavigation", {
-  siteId: currentSite.siteId,
-});
+// const {
+//   data: {
+//     value: {
+//       globalSet: { fieldMainNav },
+//     },
+//   },
+// } = await useAsyncGql("mainNavigation", {
+//   siteId: currentSite.siteId,
+// });
 
 // Render 404
 if (pageInfo == null) {
@@ -205,6 +215,6 @@ if (pageInfo == null) {
   });
 }
 
-siteStore.addMainNavigation(fieldMainNav);
+siteStore.addMainNavigation(mainNav.value.data.globalSet.fieldMainNav);
 siteStore.addLocale(currentSite.language);
 </script>
