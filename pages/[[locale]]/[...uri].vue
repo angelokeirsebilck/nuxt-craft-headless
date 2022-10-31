@@ -111,8 +111,6 @@ const { data: entry, refresh } = await useGraphqlQuery({
 
 refresh();
 
-console.log(entry.value.data.entry);
-
 const pageInfo = computed(() => {
   if (entry.value.data.entry !== null) return entry.value.data.entry;
   if (category.value.data.entry !== null) return category.value.data.category;
@@ -127,6 +125,10 @@ const { data: mainNav } = await useGraphqlQuery({
     siteId: currentSite.siteId,
   },
 });
+
+if (mainNav.value.data.globalSet.fieldMainNav) {
+  siteStore.addMainNavigation(mainNav.value.data.globalSet.fieldMainNav);
+}
 
 // const pageInfo = entry.value.data.entry || category.value.data.category || null;
 
@@ -215,6 +217,6 @@ if (pageInfo == null) {
   });
 }
 
-siteStore.addMainNavigation(mainNav?.value?.data?.globalSet?.fieldMainNav);
+// siteStore.addMainNavigation(fieldMainNav);
 siteStore.addLocale(currentSite.language);
 </script>

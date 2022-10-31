@@ -45,7 +45,6 @@ export const useGraphqlQuery = (params: IGraphqlQuery) => {
   if (preview && xCraftPreview) {
     customHeaders["x-craft-preview"] = xCraftPreview;
   }
-  console.log(apiUrl);
 
   // return $fetch(apiUrl, {
   //   method: "POST",
