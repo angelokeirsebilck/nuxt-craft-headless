@@ -45,6 +45,24 @@ const finalUri = useGetUri({
   path,
 });
 
+// Set preview headers
+
+const {
+  token,
+  "x-craft-preview": xCraftPreview,
+  "x-craft-live-preview": xCraftLivePreview,
+} = route.query;
+
+if (token && xCraftPreview) {
+  useGqlHeaders({ "X-Craft-Token": `${token}` });
+  useGqlHeaders({ "x-craft-live-preview": `${xCraftPreview}` });
+}
+
+if (token && xCraftLivePreview) {
+  useGqlHeaders({ "X-Craft-Token": `${token}` });
+  useGqlHeaders({ "x-craft-live-preview": `${xCraftLivePreview}` });
+}
+
 // let pageInfo = null;
 
 // Get page content
@@ -196,7 +214,33 @@ const [
   }),
 ]);
 
-const pageInfo = entry.value.entry || category.value.category || null;
+const pageInfo = entry?.value?.entry || category?.value?.category || null;
+
+// refreshNuxtData();
+
+// const GqlInstance = useGql();
+// const data = await GqlInstance("combined", {
+//   uri: finalUri,
+//   siteId: currentSite.siteId,
+// });
+
+// console.log();
+
+// const { data } = await useAsyncGql("combined", {
+//   uri: finalUri,
+//   siteId: currentSite.siteId,
+// });
+
+// const pageInfo = computed(() => {
+//   if (data?.value?.entry) return data?.value?.entry;
+//   if (data?.value?.category) return data?.value?.category;
+
+//   return null;
+// });
+
+// const pageInfo = data?.value?.entry || data?.value?.category || null;
+
+// const pageInfo = entry?.value?.entry || category?.value?.category || null;
 
 // Get Navigation
 // const {
@@ -216,7 +260,9 @@ if (pageInfo == null) {
     statusCode: 404,
   });
 }
+if (fieldMainNav) {
+  siteStore.addMainNavigation(fieldMainNav);
+}
 
-siteStore.addMainNavigation(fieldMainNav);
 siteStore.addLocale(currentSite.language);
 </script>

@@ -18,6 +18,9 @@ export default defineNuxtConfig({
       CRAFT_CMS_GRAPHQL_TOKEN: "",
       "graphql-client": {
         documentPaths: ["./graphql/"],
+        codegen: {
+          onlyOperationTypes: false,
+        },
         clients: {
           default: {
             host: process.env.NUXT_CRAFT_CMS_GRAPHQL_ENDPOINT || "",
