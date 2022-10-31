@@ -126,9 +126,9 @@ const { data: mainNav } = await useGraphqlQuery({
   },
 });
 
-if (mainNav.value.data.globalSet.fieldMainNav) {
-  siteStore.addMainNavigation(mainNav.value.data.globalSet.fieldMainNav);
-}
+// if (mainNav.value.data.globalSet.fieldMainNav) {
+//   siteStore.addMainNavigation(mainNav.value.data.globalSet.fieldMainNav);
+// }
 
 // const pageInfo = entry.value.data.entry || category.value.data.category || null;
 
