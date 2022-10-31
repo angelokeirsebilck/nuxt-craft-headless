@@ -87,44 +87,44 @@ const finalUri = useGetUri({
 //   GqlCategory({ uri: finalUri, siteId: currentSite.siteId })
 // );
 
-const { data: category, refresh: refreshCat } = await useGraphqlQuery({
-  key: "category",
-  query: categoryQuery,
-  routeQuery: {},
-  variables: {
-    uri: finalUri,
-    siteId: currentSite.siteId,
-  },
-});
+// const { data: category, refresh: refreshCat } = await useGraphqlQuery({
+//   key: "category",
+//   query: categoryQuery,
+//   routeQuery: {},
+//   variables: {
+//     uri: finalUri,
+//     siteId: currentSite.siteId,
+//   },
+// });
 
-refreshCat();
+// refreshCat();
 
-const { data: entry, refresh } = await useGraphqlQuery({
-  key: "entry",
-  query: entryQuery,
-  routeQuery: {},
-  variables: {
-    uri: finalUri,
-    siteId: currentSite.siteId,
-  },
-});
+// const { data: entry, refresh } = await useGraphqlQuery({
+//   key: "entry",
+//   query: entryQuery,
+//   routeQuery: {},
+//   variables: {
+//     uri: finalUri,
+//     siteId: currentSite.siteId,
+//   },
+// });
 
-refresh();
+// refresh();
 
-const pageInfo = computed(() => {
-  if (entry.value.data.entry !== null) return entry.value.data.entry;
-  if (category.value.data.entry !== null) return category.value.data.category;
-  return null;
-});
+// const pageInfo = computed(() => {
+//   if (entry.value.data.entry !== null) return entry.value.data.entry;
+//   if (category.value.data.entry !== null) return category.value.data.category;
+//   return null;
+// });
 
-const { data: mainNav } = await useGraphqlQuery({
-  key: "mainNav",
-  query: mainNavQuery,
-  routeQuery: {},
-  variables: {
-    siteId: currentSite.siteId,
-  },
-});
+// const { data: mainNav } = await useGraphqlQuery({
+//   key: "mainNav",
+//   query: mainNavQuery,
+//   routeQuery: {},
+//   variables: {
+//     siteId: currentSite.siteId,
+//   },
+// });
 
 // if (mainNav.value.data.globalSet.fieldMainNav) {
 //   siteStore.addMainNavigation(mainNav.value.data.globalSet.fieldMainNav);
@@ -172,31 +172,31 @@ const { data: mainNav } = await useGraphqlQuery({
 
 // const pageInfo = entry.value.data.entry || category.value.data.category || null;
 
-// const [
-//   { data: category },
-//   { data: entry },
-//   {
-//     data: {
-//       value: {
-//         globalSet: { fieldMainNav },
-//       },
-//     },
-//   },
-// ] = await Promise.all([
-//   useAsyncGql("category", {
-//     uri: finalUri,
-//     siteId: currentSite.siteId,
-//   }),
-//   useAsyncGql("entry", {
-//     uri: finalUri,
-//     siteId: currentSite.siteId,
-//   }),
-//   useAsyncGql("mainNavigation", {
-//     siteId: currentSite.siteId,
-//   }),
-// ]);
+const [
+  { data: category },
+  { data: entry },
+  {
+    data: {
+      value: {
+        globalSet: { fieldMainNav },
+      },
+    },
+  },
+] = await Promise.all([
+  useAsyncGql("category", {
+    uri: finalUri,
+    siteId: currentSite.siteId,
+  }),
+  useAsyncGql("entry", {
+    uri: finalUri,
+    siteId: currentSite.siteId,
+  }),
+  useAsyncGql("mainNavigation", {
+    siteId: currentSite.siteId,
+  }),
+]);
 
-// const pageInfo = entry.value.entry || category.value.category || null;
+const pageInfo = entry.value.entry || category.value.category || null;
 
 // Get Navigation
 // const {
@@ -217,6 +217,6 @@ if (pageInfo == null) {
   });
 }
 
-// siteStore.addMainNavigation(fieldMainNav);
+siteStore.addMainNavigation(fieldMainNav);
 siteStore.addLocale(currentSite.language);
 </script>
