@@ -21,13 +21,9 @@
 </template>
 
 <script setup lang="ts">
-import { entryQuery } from "@/graphql/entry.gql";
-import { categoryQuery } from "@/graphql/category.gql";
-import { mainNavQuery } from "@/graphql/nav/mainnav.gql";
-import { combinedQuery } from "@/graphql/combined.gql";
+import { uriQuery } from "@/graphql/uri.gql";
 
 import { useSiteStore } from "~/stores/useSiteStore";
-import { use } from "h3";
 const siteStore = useSiteStore();
 
 const route = useRoute();
@@ -147,7 +143,7 @@ const variables = {
 //   entry?.value?.data?.entry || category?.value?.data?.category || null;
 
 const { data } = await useGraphqlQuery({
-  query: combinedQuery,
+  query: uriQuery,
   variables,
   routeQuery: route.query,
   fetchKey: `${locale}/${uri}-combined`,
