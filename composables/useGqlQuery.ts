@@ -58,32 +58,32 @@ export const useGraphqlQuery = (params: IGraphqlQuery) => {
   //   },
   // });
 
-  // return useFetch(apiUrl, {
-  //   key: params.key,
-  //   method: "POST",
-  //   body: {
-  //     query: params.query,
-  //     variables: params.variables || null,
-  //   },
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: `Bearer ${CRAFT_CMS_GRAPHQL_TOKEN}`,
-  //     ...customHeaders,
-  //   },
-  // });
+  return useFetch(apiUrl, {
+    key: `${params.fetchKey}`,
+    method: "POST",
+    body: {
+      query: params.query,
+      variables: params.variables || null,
+    },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${CRAFT_CMS_GRAPHQL_TOKEN}`,
+      ...customHeaders,
+    },
+  });
 
-  return useAsyncData(`${params.fetchKey}`, () =>
-    $fetch(apiUrl, {
-      method: "POST",
-      body: {
-        query: params.query,
-        variables: params.variables || null,
-      },
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${CRAFT_CMS_GRAPHQL_TOKEN}`,
-        ...customHeaders,
-      },
-    })
-  );
+  // return useAsyncData(`${params.fetchKey}`, () =>
+  //   $fetch(apiUrl, {
+  //     method: "POST",
+  //     body: {
+  //       query: params.query,
+  //       variables: params.variables || null,
+  //     },
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${CRAFT_CMS_GRAPHQL_TOKEN}`,
+  //       ...customHeaders,
+  //     },
+  //   })
+  // );
 };

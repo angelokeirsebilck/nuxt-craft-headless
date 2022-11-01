@@ -24,6 +24,7 @@
 import { entryQuery } from "@/graphql/entry.gql";
 import { categoryQuery } from "@/graphql/category.gql";
 import { mainNavQuery } from "@/graphql/nav/mainnav.gql";
+import { combinedQuery } from "@/graphql/combined.gql";
 
 import { useSiteStore } from "~/stores/useSiteStore";
 import { use } from "h3";
@@ -105,30 +106,30 @@ const variables = {
   siteId: currentSite.siteId,
 };
 
-const { data: entry } = await useGraphqlQuery({
-  query: entryQuery,
-  variables,
-  routeQuery: route.query,
-  fetchKey: `${locale}/${uri}-entry`,
-});
+// const { data: entry } = await useGraphqlQuery({
+//   query: entryQuery,
+//   variables,
+//   routeQuery: route.query,
+//   fetchKey: `${locale}/${uri}-entry`,
+// });
 
-const { data: category } = await useGraphqlQuery({
-  query: categoryQuery,
-  variables,
-  routeQuery: route.query,
-  fetchKey: `${locale}/${uri}-category`,
-});
+// const { data: category } = await useGraphqlQuery({
+//   query: categoryQuery,
+//   variables,
+//   routeQuery: route.query,
+//   fetchKey: `${locale}/${uri}-category`,
+// });
 
-const { data: mainNav } = await useGraphqlQuery({
-  query: mainNavQuery,
-  variables,
-  routeQuery: route.query,
-  fetchKey: `mainNav`,
-});
+// const { data: mainNav } = await useGraphqlQuery({
+//   query: mainNavQuery,
+//   variables,
+//   routeQuery: route.query,
+//   fetchKey: `mainNav`,
+// });
 
+// console.log(entry);
 // console.log(category);
 // console.log(mainNav);
-// console.log(entry);
 
 // if (mainNav?.globalSet?.fieldMainNav) {
 //   siteStore.addMainNavigation(mainNav.globalSet.fieldMainNav);
@@ -137,14 +138,34 @@ const { data: mainNav } = await useGraphqlQuery({
 // const pageInfo = entry?.entry || category?.category || null;
 
 // -----------------Using Async Data $fetch with fetchkey--------------------
-// Zelfde code als enkel $fetch
 
-if (mainNav?.value?.data?.globalSet?.fieldMainNav) {
-  siteStore.addMainNavigation(mainNav.value.data.globalSet.fieldMainNav);
-}
+// if (mainNav?.value?.data?.globalSet?.fieldMainNav) {
+//   siteStore.addMainNavigation(mainNav.value.data.globalSet.fieldMainNav);
+// }
+
+// const pageInfo =
+//   entry?.value?.data?.entry || category?.value?.data?.category || null;
+
+const { data } = await useGraphqlQuery({
+  query: combinedQuery,
+  variables,
+  routeQuery: route.query,
+  fetchKey: `${locale}/${uri}-combined`,
+});
 
 const pageInfo =
-  entry?.value?.data?.entry || category?.value?.data?.category || null;
+  data?.value?.data?.entry || data?.value?.data?.category || null;
+
+if (data?.value?.data?.globalSet?.fieldMainNav) {
+  siteStore.addMainNavigation(data.value.data.globalSet.fieldMainNav);
+}
+
+// const pageInfo = computed(() => {
+//   if (entry?.value?.data?.entry !== null) return entry.value.data.entry;
+//   if (category?.value?.data?.entry !== null)
+//     return category.value.data.category;
+//   return null;
+// });
 
 // let pageInfo = null;
 
