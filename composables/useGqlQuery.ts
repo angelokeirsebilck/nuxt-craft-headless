@@ -44,19 +44,19 @@ export const useGraphqlQuery = (params: IGraphqlQuery) => {
   if (token && xCraftPreview) {
     customHeaders["x-craft-preview"] = xCraftPreview;
   }
-  console.log(customHeaders);
-  return $fetch(apiUrl, {
-    method: "POST",
-    body: {
-      query: params.query,
-      variables: params.variables || null,
-    },
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${CRAFT_CMS_GRAPHQL_TOKEN}`,
-      ...customHeaders,
-    },
-  });
+
+  // return $fetch(apiUrl, {
+  //   method: "POST",
+  //   body: {
+  //     query: params.query,
+  //     variables: params.variables || null,
+  //   },
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Bearer ${CRAFT_CMS_GRAPHQL_TOKEN}`,
+  //     ...customHeaders,
+  //   },
+  // });
 
   // return useFetch(apiUrl, {
   //   key: params.key,
@@ -72,18 +72,18 @@ export const useGraphqlQuery = (params: IGraphqlQuery) => {
   //   },
   // });
 
-  // return useAsyncData(`${params.fetchKey}`, () =>
-  //   $fetch(apiUrl, {
-  //     method: "POST",
-  //     body: {
-  //       query: params.query,
-  //       variables: params.variables || null,
-  //     },
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${CRAFT_CMS_GRAPHQL_TOKEN}`,
-  //       ...customHeaders,
-  //     },
-  //   })
-  // );
+  return useAsyncData(`${params.fetchKey}`, () =>
+    $fetch(apiUrl, {
+      method: "POST",
+      body: {
+        query: params.query,
+        variables: params.variables || null,
+      },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${CRAFT_CMS_GRAPHQL_TOKEN}`,
+        ...customHeaders,
+      },
+    })
+  );
 };

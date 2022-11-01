@@ -46,25 +46,25 @@ const finalUri = useGetUri({
   path,
 });
 
-// Set preview headers
+// Set preview headers if using useAsyncGql
 
-const {
-  token,
-  "x-craft-preview": xCraftPreview,
-  "x-craft-live-preview": xCraftLivePreview,
-} = route.query;
+// const {
+//   token,
+//   "x-craft-preview": xCraftPreview,
+//   "x-craft-live-preview": xCraftLivePreview,
+// } = route.query;
 
-if (token && xCraftPreview) {
-  useGqlHeaders({ "X-Craft-Token": `${token}` });
-  useGqlHeaders({ "x-craft-live-preview": `${xCraftPreview}` });
-}
+// if (token && xCraftPreview) {
+//   useGqlHeaders({ "X-Craft-Token": `${token}` });
+//   useGqlHeaders({ "x-craft-live-preview": `${xCraftPreview}` });
+// }
 
-if (token && xCraftLivePreview) {
-  useGqlHeaders({ "X-Craft-Token": `${token}` });
-  useGqlHeaders({ "x-craft-live-preview": `${xCraftLivePreview}` });
-}
+// if (token && xCraftLivePreview) {
+//   useGqlHeaders({ "X-Craft-Token": `${token}` });
+//   useGqlHeaders({ "x-craft-live-preview": `${xCraftLivePreview}` });
+// }
 
-//-----NUXT GRAPHQL CLIENT
+//------------------------NUXT GRAPHQL CLIENT----------------------------
 // Probleem: Als je op de category page start werkt alles, maar als je op een entry page start en dan naar category gaat is category undefined
 
 // const [
@@ -97,6 +97,9 @@ if (token && xCraftLivePreview) {
 //   siteStore.addMainNavigation(fieldMainNav);
 // }
 
+//------------- Enkel $fetch------------------------
+// Pagina's laden traag, moeten alle 3 die calls doen vooraleer de pagina veranderd, geen optie om lazy load (pending state) te gebruiken
+
 const variables = {
   uri: finalUri,
   siteId: currentSite.siteId,
@@ -106,41 +109,42 @@ const { data: entry } = await useGraphqlQuery({
   query: entryQuery,
   variables,
   routeQuery: route.query,
-  fetchKey: "entryPageInfo",
+  fetchKey: `${locale}/${uri}-entry`,
 });
 
 const { data: category } = await useGraphqlQuery({
   query: categoryQuery,
   variables,
   routeQuery: route.query,
-  fetchKey: "categoryPageInfo",
+  fetchKey: `${locale}/${uri}-category`,
 });
 
 const { data: mainNav } = await useGraphqlQuery({
   query: mainNavQuery,
   variables,
   routeQuery: route.query,
-  fetchKey: "mainNav",
+  fetchKey: `mainNav`,
 });
 
 // console.log(category);
 // console.log(mainNav);
 // console.log(entry);
 
-if (mainNav?.globalSet?.fieldMainNav) {
-  siteStore.addMainNavigation(mainNav.globalSet.fieldMainNav);
-}
-
-const pageInfo = entry?.entry || category?.category || null;
-
-// Using Async Data $fetch with fetchkey
-
-// if (mainNav?.value?.data?.globalSet?.fieldMainNav) {
-//   siteStore.addMainNavigation(mainNav.value.data.globalSet.fieldMainNav);
+// if (mainNav?.globalSet?.fieldMainNav) {
+//   siteStore.addMainNavigation(mainNav.globalSet.fieldMainNav);
 // }
 
-// const pageInfo =
-//   entry?.value?.data?.entry || category?.value?.data?.category || null;
+// const pageInfo = entry?.entry || category?.category || null;
+
+// -----------------Using Async Data $fetch with fetchkey--------------------
+// Zelfde code als enkel $fetch
+
+if (mainNav?.value?.data?.globalSet?.fieldMainNav) {
+  siteStore.addMainNavigation(mainNav.value.data.globalSet.fieldMainNav);
+}
+
+const pageInfo =
+  entry?.value?.data?.entry || category?.value?.data?.category || null;
 
 // let pageInfo = null;
 
