@@ -1,5 +1,5 @@
 interface IGraphqlQuery {
-  key: string;
+  fetchKey: string;
   query: string;
   routeQuery?: {
     [key: string]: string | string[];
@@ -30,37 +30,22 @@ export const useGraphqlQuery = (params: IGraphqlQuery) => {
     "x-craft-live-preview": xCraftLivePreview,
   } = params.routeQuery;
 
-  const apiUrl =
-    preview && token
-      ? `${CRAFT_CMS_GRAPHQL_ENDPOINT}?token=${token}`
-      : CRAFT_CMS_GRAPHQL_ENDPOINT;
+  const apiUrl = token
+    ? `${CRAFT_CMS_GRAPHQL_ENDPOINT}?token=${token}`
+    : CRAFT_CMS_GRAPHQL_ENDPOINT;
   const customHeaders: ICustomHeaders = {};
 
   // If Live Preview
-  if (preview && xCraftLivePreview) {
+  if (token && xCraftLivePreview) {
     customHeaders["x-craft-live-preview"] = xCraftLivePreview;
   }
 
   // If Preview
-  if (preview && xCraftPreview) {
+  if (token && xCraftPreview) {
     customHeaders["x-craft-preview"] = xCraftPreview;
   }
-
-  // return $fetch(apiUrl, {
-  //   method: "POST",
-  //   body: {
-  //     query: params.query,
-  //     variables: params.variables || null,
-  //   },
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: `Bearer ${CRAFT_CMS_GRAPHQL_TOKEN}`,
-  //     ...customHeaders,
-  //   },
-  // });
-
-  return useFetch(apiUrl, {
-    key: params.key,
+  console.log(customHeaders);
+  return $fetch(apiUrl, {
     method: "POST",
     body: {
       query: params.query,
@@ -73,7 +58,21 @@ export const useGraphqlQuery = (params: IGraphqlQuery) => {
     },
   });
 
-  // return useAsyncData(`${token}`, () =>
+  // return useFetch(apiUrl, {
+  //   key: params.key,
+  //   method: "POST",
+  //   body: {
+  //     query: params.query,
+  //     variables: params.variables || null,
+  //   },
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Bearer ${CRAFT_CMS_GRAPHQL_TOKEN}`,
+  //     ...customHeaders,
+  //   },
+  // });
+
+  // return useAsyncData(`${params.fetchKey}`, () =>
   //   $fetch(apiUrl, {
   //     method: "POST",
   //     body: {

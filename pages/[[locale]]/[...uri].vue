@@ -26,6 +26,7 @@ import { categoryQuery } from "@/graphql/category.gql";
 import { mainNavQuery } from "@/graphql/nav/mainnav.gql";
 
 import { useSiteStore } from "~/stores/useSiteStore";
+import { use } from "h3";
 const siteStore = useSiteStore();
 
 const route = useRoute();
@@ -62,6 +63,84 @@ if (token && xCraftLivePreview) {
   useGqlHeaders({ "X-Craft-Token": `${token}` });
   useGqlHeaders({ "x-craft-live-preview": `${xCraftLivePreview}` });
 }
+
+//-----NUXT GRAPHQL CLIENT
+// Probleem: Als je op de category page start werkt alles, maar als je op een entry page start en dan naar category gaat is category undefined
+
+// const [
+//   { data: entry },
+//   { data: category },
+//   {
+//     data: {
+//       value: {
+//         globalSet: { fieldMainNav },
+//       },
+//     },
+//   },
+// ] = await Promise.all([
+//   useAsyncGql("entry", {
+//     uri: finalUri,
+//     siteId: currentSite.siteId,
+//   }),
+//   useAsyncGql("category", {
+//     uri: finalUri,
+//     siteId: currentSite.siteId,
+//   }),
+//   useAsyncGql("mainNavigation", {
+//     siteId: currentSite.siteId,
+//   }),
+// ]);
+
+// const pageInfo = entry?.value?.entry || category?.value?.category || null;
+
+// if (fieldMainNav) {
+//   siteStore.addMainNavigation(fieldMainNav);
+// }
+
+const variables = {
+  uri: finalUri,
+  siteId: currentSite.siteId,
+};
+
+const { data: entry } = await useGraphqlQuery({
+  query: entryQuery,
+  variables,
+  routeQuery: route.query,
+  fetchKey: "entryPageInfo",
+});
+
+const { data: category } = await useGraphqlQuery({
+  query: categoryQuery,
+  variables,
+  routeQuery: route.query,
+  fetchKey: "categoryPageInfo",
+});
+
+const { data: mainNav } = await useGraphqlQuery({
+  query: mainNavQuery,
+  variables,
+  routeQuery: route.query,
+  fetchKey: "mainNav",
+});
+
+// console.log(category);
+// console.log(mainNav);
+// console.log(entry);
+
+if (mainNav?.globalSet?.fieldMainNav) {
+  siteStore.addMainNavigation(mainNav.globalSet.fieldMainNav);
+}
+
+const pageInfo = entry?.entry || category?.category || null;
+
+// Using Async Data $fetch with fetchkey
+
+// if (mainNav?.value?.data?.globalSet?.fieldMainNav) {
+//   siteStore.addMainNavigation(mainNav.value.data.globalSet.fieldMainNav);
+// }
+
+// const pageInfo =
+//   entry?.value?.data?.entry || category?.value?.data?.category || null;
 
 // let pageInfo = null;
 
@@ -190,34 +269,6 @@ if (token && xCraftLivePreview) {
 
 // const pageInfo = entry.value.data.entry || category.value.data.category || null;
 
-const [
-  { data: category },
-  { data: entry },
-  {
-    data: {
-      value: {
-        globalSet: { fieldMainNav },
-      },
-    },
-  },
-] = await Promise.all([
-  useAsyncGql("category", {
-    uri: finalUri,
-    siteId: currentSite.siteId,
-  }),
-  useAsyncGql("entry", {
-    uri: finalUri,
-    siteId: currentSite.siteId,
-  }),
-  useAsyncGql("mainNavigation", {
-    siteId: currentSite.siteId,
-  }),
-]);
-
-const pageInfo = entry?.value?.entry || category?.value?.category || null;
-
-// refreshNuxtData();
-
 // const GqlInstance = useGql();
 // const data = await GqlInstance("combined", {
 //   uri: finalUri,
@@ -254,15 +305,16 @@ const pageInfo = entry?.value?.entry || category?.value?.category || null;
 // });
 
 // Render 404
-if (pageInfo == null) {
-  throw createError({
-    fatal: true,
-    statusCode: 404,
-  });
-}
-if (fieldMainNav) {
-  siteStore.addMainNavigation(fieldMainNav);
-}
+// if (pageInfo == null) {
+//   throw createError({
+//     fatal: true,
+//     statusCode: 404,
+//   });
+// }
+
+// if (fieldMainNav) {
+//   siteStore.addMainNavigation(fieldMainNav);
+// }
 
 siteStore.addLocale(currentSite.language);
 </script>

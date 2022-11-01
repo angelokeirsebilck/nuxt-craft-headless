@@ -15,7 +15,7 @@ const label = computed(() => {
 </script>
 
 <template>
-  <NuxtLink :to="`/${siteStore.locale}/${item.element.uri}`">
+  <NuxtLink prefetch :to="`/${siteStore.locale}/${item.element.uri}`">
     {{ label }}
   </NuxtLink>
 </template>
