@@ -16,14 +16,15 @@
           <p>Category Group Handle: {{ pageInfo?.groupHandle }}</p>
         </div>
       </div>
+      <component :is="useResolvePageComponent(pageResolveInfo)"></component>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { uriQuery } from "@/graphql/uri.gql";
-
-import { useSiteStore } from "~/stores/useSiteStore";
+import { uriQuery } from "~~/graphql/uri.gql";
+import type { IPageInfo } from "@/composables/useResolvePageComponent";
+import { useSiteStore } from "@/stores/useSiteStore";
 const siteStore = useSiteStore();
 
 const route = useRoute();
@@ -41,6 +42,14 @@ const finalUri = useGetUri({
   uri,
   locale,
   path,
+});
+
+const pageResolveInfo = computed<IPageInfo>(() => {
+  return {
+    sectionHandle: pageInfo.sectionHandle,
+    typeHandle: pageInfo.typeHandle,
+    groupHandle: pageInfo.groupHandle,
+  };
 });
 
 // Set preview headers if using useAsyncGql
@@ -146,7 +155,7 @@ const { data } = await useGraphqlQuery({
   query: uriQuery,
   variables,
   routeQuery: route.query,
-  fetchKey: `${locale}/${uri}-combined`,
+  fetchKey: `${locale}/${uri}-uriData`,
 });
 
 const pageInfo =
@@ -326,12 +335,12 @@ if (data?.value?.data?.globalSet?.fieldMainNav) {
 // });
 
 // Render 404
-// if (pageInfo == null) {
-//   throw createError({
-//     fatal: true,
-//     statusCode: 404,
-//   });
-// }
+if (pageInfo == null) {
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+  });
+}
 
 // if (fieldMainNav) {
 //   siteStore.addMainNavigation(fieldMainNav);

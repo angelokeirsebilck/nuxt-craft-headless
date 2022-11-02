@@ -7,6 +7,15 @@ export default defineNuxtConfig({
     "nuxt-graphql-client",
     ["@pinia/nuxt", { autoImports: ["defineStore"] }],
   ],
+  components: {
+    dirs: [
+      {
+        path: "~/components/views",
+        global: true,
+      },
+      "~/components",
+    ],
+  },
   // hooks: {
   //   async "nitro:config"(nitroConfig) {
   //     if (nitroConfig.dev) {
