@@ -10,6 +10,7 @@ export const categoryQuery = gql`
       localized {
         siteId
         uri
+        language
       }
     }
 `;

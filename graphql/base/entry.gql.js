@@ -10,6 +10,7 @@ export const entryQuery = gql`
       localized {
         siteId
         uri
+        language
       }
     }
 `;

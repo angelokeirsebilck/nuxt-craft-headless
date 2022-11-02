@@ -16,6 +16,8 @@
     "postcss": "^8.4.18"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.3",
+    "@heroicons/vue": "^2.0.12",
     "@pinia/nuxt": "^0.4.3",
     "nuxt-graphql-client": "^0.2.8"
   }

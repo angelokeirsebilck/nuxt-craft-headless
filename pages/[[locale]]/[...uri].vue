@@ -338,4 +338,5 @@ if (data?.value?.data?.globalSet?.fieldMainNav) {
 // }
 
 siteStore.addLocale(currentSite.language);
+siteStore.addLocalized(pageInfo.localized);
 </script>

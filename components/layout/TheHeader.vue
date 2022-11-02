@@ -6,7 +6,7 @@ const siteStore = useSiteStore();
 <template>
   <header>
     <div class="container">
-      <div class="flex justify-between py-8 bg-green-500">
+      <div class="flex justify-between py-8 border-b border-green-200">
         <NuxtLink :to="`/${siteStore.locale}`"
           ><svg
             id="logo-34"
@@ -82,7 +82,10 @@ const siteStore = useSiteStore();
               fill="#2DF8BB"
             ></path></svg
         ></NuxtLink>
-        <Nav />
+        <div class="flex items-center">
+          <Nav />
+          <NavLang />
+        </div>
       </div>
     </div>
   </header>

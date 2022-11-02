@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 export interface IState {
   navMain: ILink[];
   locale: string;
+  localized: ILocalizd[];
 }
 
 export interface IElement {
@@ -19,10 +20,17 @@ export interface ILink {
   test: string;
 }
 
+export interface ILocalizd {
+  language: string;
+  siteId: number;
+  uri: string;
+}
+
 export const useSiteStore = defineStore("site", {
   state: (): IState => ({
     navMain: [] as ILink[],
     locale: "",
+    localized: null as ILocalizd[],
   }),
   actions: {
     addMainNavigation(navMain) {
@@ -33,6 +41,9 @@ export const useSiteStore = defineStore("site", {
     },
     addLocale(locale) {
       this.locale = locale;
+    },
+    addLocalized(localized) {
+      this.localized = [...localized];
     },
   },
 });

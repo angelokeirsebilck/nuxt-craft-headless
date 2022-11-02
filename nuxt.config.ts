@@ -1,5 +1,5 @@
 import { resolve } from "path";
-
+import { dynamicRoutes } from "./scripts/createDynamicRoutes";
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   modules: [
@@ -7,6 +7,16 @@ export default defineNuxtConfig({
     "nuxt-graphql-client",
     ["@pinia/nuxt", { autoImports: ["defineStore"] }],
   ],
+  // hooks: {
+  //   async "nitro:config"(nitroConfig) {
+  //     if (nitroConfig.dev) {
+  //       return;
+  //     }
+
+  //     const routes = await dynamicRoutes();
+  //     nitroConfig.prerender.routes = [...routes];
+  //   },
+  // },
   runtimeConfig: {
     // The private keys which are only available server-side
     CRAFT_CMS_GRAPHQL_ENDPOINT: "",
