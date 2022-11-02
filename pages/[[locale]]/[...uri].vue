@@ -335,12 +335,12 @@ if (data?.value?.data?.globalSet?.fieldMainNav) {
 // });
 
 // Render 404
-if (pageInfo == null) {
-  throw createError({
-    fatal: true,
-    statusCode: 404,
-  });
-}
+// if (pageInfo == null) {
+//   throw createError({
+//     fatal: true,
+//     statusCode: 404,
+//   });
+// }
 
 // if (fieldMainNav) {
 //   siteStore.addMainNavigation(fieldMainNav);
