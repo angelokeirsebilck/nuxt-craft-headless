@@ -133,5 +133,6 @@ if (pageInfo == null) {
 }
 
 siteStore.addLocale(currentSite.language);
+siteStore.addSiteId(currentSite.siteId);
 siteStore.addLocalized(pageInfo.localized);
 </script>

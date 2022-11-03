@@ -22,7 +22,8 @@
               @click="handleError"
               class="flex mt-10 space-x-3 sm:border-l sm:border-transparent sm:pl-6"
             >
-              <a href="/" class="px-8 py-4 font-medium uppercase bg-green-400"
+              <a
+                class="px-8 py-4 font-medium uppercase bg-green-400 cursor-pointer"
                 ><!---->
                 Go back home
               </a>
@@ -33,9 +34,20 @@
     </div>
   </NuxtLayout>
 </template>
-<script setup>
+<script setup lang="ts">
+onMounted(() => {
+  console.log("TODO: slack error message integration");
+});
+
+const {
+  params: { locale },
+} = useRoute();
+const matchingSite = useGetCurrentSiteData({ locale: locale as string });
+const primarySite = useGetPrimarySiteData();
+const currentSite = matchingSite ? matchingSite : primarySite;
+
 defineProps({
   error: Object,
 });
-const handleError = () => clearError({ redirect: "/" });
+const handleError = () => clearError({ redirect: `/${currentSite.language}` });
 </script>

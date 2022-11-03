@@ -10,16 +10,22 @@ const {
 const { data } = await useGraphqlQuery({
   query: pagesDefaultQuery,
   variables: {
-    siteId: 2,
+    siteId: siteStore.siteId,
     uri,
   },
   routeQuery: route.query,
   fetchKey: `${siteStore.locale}/${uri}-pagesDefault`,
 });
+
+const contentBuilderData = computed(() => {
+  return data?.value?.data?.entry?.fieldContentBuilder;
+});
 </script>
 
 <template>
   <div>Component: views/PagesDefault</div>
+  <BaseContentBuilder
+    :content="contentBuilderData"
+    v-show="contentBuilderData"
+  />
 </template>
-
-<style scoped></style>

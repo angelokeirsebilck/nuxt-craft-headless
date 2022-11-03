@@ -10,16 +10,22 @@ const {
 const { data } = await useGraphqlQuery({
   query: pagesContactQuery,
   variables: {
-    siteId: 2,
+    siteId: siteStore.siteId,
     uri,
   },
   routeQuery: route.query,
   fetchKey: `${siteStore.locale}/${uri}-pagesDefault`,
 });
+
+const contentBuilderData = computed(() => {
+  return data?.value?.data?.entry?.fieldContentBuilder;
+});
 </script>
 
 <template>
   <div>Component: views/PagesContact</div>
+  <BaseContentBuilder
+    :content="contentBuilderData"
+    v-show="contentBuilderData"
+  />
 </template>
-
-<style scoped></style>

@@ -13,6 +13,10 @@ export default defineNuxtConfig({
         path: "~/components/views",
         global: true,
       },
+      {
+        path: "~/components/block",
+        global: true,
+      },
       "~/components",
     ],
   },
