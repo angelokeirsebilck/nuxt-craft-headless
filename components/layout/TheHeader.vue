@@ -1,6 +1,12 @@
 <script lang="ts" setup>
 import { useSiteStore } from "~/stores/useSiteStore";
 const siteStore = useSiteStore();
+
+interface IProps {
+  errorTemplate?: boolean;
+}
+
+defineProps<IProps>();
 </script>
 
 <template>
@@ -82,7 +88,7 @@ const siteStore = useSiteStore();
               fill="#2DF8BB"
             ></path></svg
         ></NuxtLink>
-        <div class="flex items-center">
+        <div class="flex items-center" v-show="!errorTemplate">
           <Nav />
           <NavLang />
         </div>

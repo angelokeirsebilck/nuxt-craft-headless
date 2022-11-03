@@ -25,15 +25,25 @@ export const useResolvePageComponent = (params: IPageInfo) => {
   if (sectionHandle && typeHandle) {
     compToResolve = `${sectionHandle}${typeHandle}`;
   }
+  if (sectionHandle == typeHandle) {
+    compToResolve = `${sectionHandle}`;
+  }
 
   if (groupHandle) {
     compToResolve = `${groupHandle}`;
   }
 
-  console.log(compToResolve);
-
-  return typeof instance?.appContext.components === "object" &&
+  if (
+    typeof instance?.appContext.components === "object" &&
     compToResolve in instance.appContext.components
-    ? compToResolve
-    : "PagesDefault";
+  )
+    return compToResolve;
+
+  throw createError({
+    message: "No view found for this section/type or group",
+    statusMessage: "Internal Server Error",
+    name: "Internal Server Error",
+    fatal: true,
+    statusCode: 500,
+  });
 };
