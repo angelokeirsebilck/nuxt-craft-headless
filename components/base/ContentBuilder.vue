@@ -1,19 +1,22 @@
 <template>
   <div>
     <div v-for="block in content">
-      <component :is="resolveBlockComponent(block?.__typename)"></component>
+      <component
+        :is="resolveBlockComponent(block?.__typename)"
+        :blockData="{ ...block }"
+      ></component>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-interface Props {
+interface IProps {
   content: Array<any>;
 }
 
-defineProps<Props>();
+defineProps<IProps>();
 
-const resolveBlockComponent = (typename) => {
+const resolveBlockComponent = (typename: string) => {
   const instance = getCurrentInstance();
   let blockToResolve = useFirstLetterUppercase({
     text: typename
@@ -28,7 +31,7 @@ const resolveBlockComponent = (typename) => {
     return blockToResolve;
 
   throw createError({
-    message: "No block found with this type.",
+    message: `No block found with type: ${blockToResolve}`,
     statusMessage: "Internal Server Error",
     name: "Internal Server Error",
     fatal: true,
