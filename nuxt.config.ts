@@ -45,7 +45,7 @@ export default defineNuxtConfig({
       "graphql-client": {
         documentPaths: ["./graphql/"],
         codegen: {
-          onlyOperationTypes: false,
+          onlyOperationTypes: true,
         },
         clients: {
           default: {

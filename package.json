@@ -20,5 +20,10 @@
     "@heroicons/vue": "^2.0.12",
     "@pinia/nuxt": "^0.4.3",
     "nuxt-graphql-client": "^0.2.8"
+  },
+  "resolutions": {
+    "@graphql-codegen/cli": "2.13.4",
+    "@graphql-codegen/core": "2.6.2",
+    "@graphql-codegen/plugin-helpers": "2.7.1"
   }
 }

@@ -8,6 +8,7 @@ query entry($uri: [String]!, $siteId: [QueryArgument]!) {
     localized {
       siteId
       uri
+      language
     }
   }
 }

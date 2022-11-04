@@ -22,7 +22,6 @@
 </template>
 
 <script setup lang="ts">
-import { uriQuery } from "~~/graphql/uri.gql";
 import type { IPageInfo } from "@/composables/useResolvePageComponent";
 import { useSiteStore } from "@/stores/useSiteStore";
 const siteStore = useSiteStore();
@@ -46,80 +45,58 @@ const finalUri = useGetUri({
 
 const pageResolveInfo = computed<IPageInfo>(() => {
   return {
-    sectionHandle: pageInfo.sectionHandle,
-    typeHandle: pageInfo.typeHandle,
-    groupHandle: pageInfo.groupHandle,
+    sectionHandle: pageInfo?.sectionHandle || null,
+    typeHandle: pageInfo?.typeHandle || null,
+    groupHandle: pageInfo?.groupHandle || null,
   };
 });
 
 // Set preview headers if using useAsyncGql
 
-// const {
-//   token,
-//   "x-craft-preview": xCraftPreview,
-//   "x-craft-live-preview": xCraftLivePreview,
-// } = route.query;
+const {
+  token,
+  "x-craft-preview": xCraftPreview,
+  "x-craft-live-preview": xCraftLivePreview,
+} = route.query;
 
-// if (token && xCraftPreview) {
-//   useGqlHeaders({ "X-Craft-Token": `${token}` });
-//   useGqlHeaders({ "x-craft-live-preview": `${xCraftPreview}` });
-// }
+if (token && xCraftPreview) {
+  useGqlHeaders({ "X-Craft-Token": `${token}` });
+  useGqlHeaders({ "x-craft-live-preview": `${xCraftPreview}` });
+}
 
-// if (token && xCraftLivePreview) {
-//   useGqlHeaders({ "X-Craft-Token": `${token}` });
-//   useGqlHeaders({ "x-craft-live-preview": `${xCraftLivePreview}` });
-// }
+if (token && xCraftLivePreview) {
+  useGqlHeaders({ "X-Craft-Token": `${token}` });
+  useGqlHeaders({ "x-craft-live-preview": `${xCraftLivePreview}` });
+}
 
-//------------------------NUXT GRAPHQL CLIENT----------------------------
-// Probleem: Als je op de category page start werkt alles, maar als je op een entry page start en dan naar category gaat is category undefined
+const [
+  { data: entry },
+  { data: category },
+  {
+    data: {
+      value: {
+        globalSet: { fieldMainNav },
+      },
+    },
+  },
+] = await Promise.all([
+  useAsyncGql("entry", {
+    uri: finalUri,
+    siteId: currentSite.siteId,
+  }),
+  useAsyncGql("category", {
+    uri: finalUri,
+    siteId: currentSite.siteId,
+  }),
+  useAsyncGql("mainNavigation", {
+    siteId: currentSite.siteId,
+  }),
+]);
 
-// const [
-//   { data: entry },
-//   { data: category },
-//   {
-//     data: {
-//       value: {
-//         globalSet: { fieldMainNav },
-//       },
-//     },
-//   },
-// ] = await Promise.all([
-//   useAsyncGql("entry", {
-//     uri: finalUri,
-//     siteId: currentSite.siteId,
-//   }),
-//   useAsyncGql("category", {
-//     uri: finalUri,
-//     siteId: currentSite.siteId,
-//   }),
-//   useAsyncGql("mainNavigation", {
-//     siteId: currentSite.siteId,
-//   }),
-// ]);
+const pageInfo = entry?.value?.entry || category?.value?.category || null;
 
-// const pageInfo = entry?.value?.entry || category?.value?.category || null;
-
-// if (fieldMainNav) {
-//   siteStore.addMainNavigation(fieldMainNav);
-// }
-
-const variables = {
-  uri: finalUri,
-  siteId: currentSite.siteId,
-};
-
-const { data } = await useGraphqlQuery({
-  query: uriQuery,
-  variables,
-  routeQuery: route.query,
-  fetchKey: `${locale}/${uri}-uriData`,
-});
-
-const pageInfo =
-  data?.value?.data?.entry || data?.value?.data?.category || null;
-
-if (data?.value?.data?.globalSet?.fieldMainNav) {
-  siteStore.addMainNavigation(data.value.data.globalSet.fieldMainNav);
+if (fieldMainNav) {
+  siteStore.addMainNavigation(fieldMainNav);
 }
 
 // Render 404
@@ -134,5 +111,5 @@ if (pageInfo == null) {
 
 siteStore.addLocale(currentSite.language);
 siteStore.addSiteId(currentSite.siteId);
-siteStore.addLocalized(pageInfo.localized);
+if (pageInfo?.localized) siteStore.addLocalized(pageInfo.localized);
 </script>
