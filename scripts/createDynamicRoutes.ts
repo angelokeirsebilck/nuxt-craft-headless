@@ -31,24 +31,26 @@ export const dynamicRoutes = async () => {
     let { siteId, uri } = entry;
 
     const matchingSite = configSites.find((site) => site.siteId === siteId);
-    const locale =
-      matchingSite.urlParameter.length > 0
-        ? `/${matchingSite.urlParameter}/`
-        : "/";
 
-    finalRoutes.push(`${locale}${uri.replace("__home__", "")}`);
+    finalRoutes.push(
+      `/${matchingSite.language}/${uri.replace("__home__", "")}`
+    );
+    if (matchingSite.primary) {
+      finalRoutes.push(`/${uri.replace("__home__", "")}`);
+    }
   });
 
   categories.forEach((category) => {
     let { siteId, uri } = category;
 
     const matchingSite = configSites.find((site) => site.siteId === siteId);
-    const locale =
-      matchingSite.urlParameter.length > 0
-        ? `/${matchingSite.urlParameter}/`
-        : "/";
 
-    finalRoutes.push(`${locale}${uri.replace("__home__", "")}`);
+    finalRoutes.push(
+      `/${matchingSite.language}/${uri.replace("__home__", "")}`
+    );
+    if (matchingSite.primary) {
+      finalRoutes.push(`/${uri.replace("__home__", "")}`);
+    }
   });
 
   return finalRoutes;

@@ -20,16 +20,19 @@ export default defineNuxtConfig({
       "~/components",
     ],
   },
-  // hooks: {
-  //   async "nitro:config"(nitroConfig) {
-  //     if (nitroConfig.dev) {
-  //       return;
-  //     }
+  hooks: {
+    async "nitro:config"(nitroConfig) {
+      if (nitroConfig.dev) {
+        return;
+      }
 
-  //     const routes = await dynamicRoutes();
-  //     nitroConfig.prerender.routes = [...routes];
-  //   },
-  // },
+      const routes = await dynamicRoutes();
+      nitroConfig.prerender.routes = [...routes];
+    },
+  },
+  router: {
+    trailingSlash: false,
+  },
   runtimeConfig: {
     // The private keys which are only available server-side
     CRAFT_CMS_GRAPHQL_ENDPOINT: "",
