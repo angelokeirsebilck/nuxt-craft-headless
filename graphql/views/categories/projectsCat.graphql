@@ -1,0 +1,8 @@
+query categoryProjectsCat($uri: [String]!, $siteId: [QueryArgument]!) {
+  category(uri: $uri, siteId: $siteId) {
+    ... on projectsCat_Category {
+      id
+      ...categoryContentBuilder
+    }
+  }
+}

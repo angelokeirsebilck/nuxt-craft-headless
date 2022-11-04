@@ -1,0 +1,8 @@
+query pagesContact($uri: [String]!, $siteId: [QueryArgument]!) {
+  entry(uri: $uri, siteId: $siteId) {
+    ... on pages_contact_Entry {
+      id
+      ...entryContentBuilder
+    }
+  }
+}

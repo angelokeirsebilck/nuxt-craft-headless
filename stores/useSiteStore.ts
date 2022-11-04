@@ -5,6 +5,7 @@ export interface IState {
   locale: string;
   siteId: number;
   localized: ILocalizd[];
+  finalUri: string;
 }
 
 export interface IElement {
@@ -33,6 +34,7 @@ export const useSiteStore = defineStore("site", {
     locale: "",
     localized: null as ILocalizd[],
     siteId: null,
+    finalUri: "",
   }),
   actions: {
     addMainNavigation(navMain) {
@@ -49,6 +51,9 @@ export const useSiteStore = defineStore("site", {
     },
     addLocalized(localized) {
       this.localized = [...localized];
+    },
+    addFinalUri(finalUri) {
+      this.finalUri = finalUri;
     },
   },
 });

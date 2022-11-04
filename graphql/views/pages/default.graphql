@@ -1,0 +1,8 @@
+query pagesDefault($uri: [String]!, $siteId: [QueryArgument]!) {
+  entry(uri: $uri, siteId: $siteId) {
+    ... on pages_default_Entry {
+      id
+      ...entryContentBuilder
+    }
+  }
+}

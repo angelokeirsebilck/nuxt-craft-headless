@@ -111,5 +111,6 @@ if (pageInfo == null) {
 
 siteStore.addLocale(currentSite.language);
 siteStore.addSiteId(currentSite.siteId);
+siteStore.addFinalUri(finalUri);
 if (pageInfo?.localized) siteStore.addLocalized(pageInfo.localized);
 </script>

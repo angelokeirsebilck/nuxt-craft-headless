@@ -1,3 +1,4 @@
+import { EntryInterface } from "./../../.nuxt/gql/default";
 import { gql } from "graphql-request";
 import { typeText } from "./blocks";
 
