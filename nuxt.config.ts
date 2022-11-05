@@ -30,6 +30,9 @@ export default defineNuxtConfig({
       nitroConfig.prerender.routes = [...routes];
     },
   },
+  app: {
+    pageTransition: { name: "page", mode: "out-in" },
+  },
   router: {
     trailingSlash: false,
   },
