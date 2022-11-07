@@ -2,16 +2,19 @@ fragment entryContentBuilder on EntryInterface {
   ... on pages_default_Entry {
     fieldContentBuilder {
       ...typeText
+      ...typeForm
     }
   }
   ... on pages_contact_Entry {
     fieldContentBuilder {
       ...typeText
+      ...typeForm
     }
   }
   ... on home_home_Entry {
     fieldContentBuilder {
       ...typeText
+      ...typeForm
     }
   }
 }

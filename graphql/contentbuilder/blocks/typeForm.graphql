@@ -1,0 +1,9 @@
+fragment typeForm on MatrixBlockInterface {
+  ... on fieldContentBuilder_typeForm_BlockType {
+    id
+    __typename
+    itemForm {
+      handle
+    }
+  }
+}

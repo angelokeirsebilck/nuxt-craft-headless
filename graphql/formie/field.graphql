@@ -1,0 +1,44 @@
+fragment FieldFragment on FieldInterface {
+  id
+  uid
+  name
+  label: name
+  handle
+  instructions
+  required
+  type
+  displayName
+  typeName
+  inputTypeName
+  matchField
+  placeholder
+  defaultValue
+  prePopulate
+  errorMessage
+  labelPosition
+  instructionsPosition
+  cssClasses
+  includeInEmail
+  enableConditions
+  conditions
+  enableContentEncryption
+  visibility
+
+  containerAttributes {
+    label
+    value
+  }
+
+  inputAttributes {
+    label
+    value
+  }
+
+  ... on Field_MultiLineText {
+    defaultValue
+  }
+
+  ... on Field_SingleLineText {
+    defaultValue
+  }
+}

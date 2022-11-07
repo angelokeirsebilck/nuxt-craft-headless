@@ -1,7 +1,7 @@
 interface IGetUri {
-  matchingSite: object|null;
-  uri: string|string[];
-  locale: string|string[];
+  matchingSite: object | null | undefined;
+  uri: string | string[];
+  locale: string | string[];
   path: string;
 }
 
@@ -9,25 +9,23 @@ export const useGetUri = (params: IGetUri) => {
   const { matchingSite, uri, locale, path } = params;
   let _uri: string;
 
-
   if (matchingSite) {
     if (uri.length > 0) {
-      _uri = [...uri].join('/');
+      _uri = [...uri].join("/");
     } else {
-      _uri = [''].join('/');
+      _uri = [""].join("/");
     }
   }
 
   if (!matchingSite) {
     if (uri.length > 0) {
-      _uri = [locale, ...uri].join('/');
+      _uri = [locale, ...uri].join("/");
     } else {
-      _uri = [locale].join('/');
+      _uri = [locale].join("/");
     }
   }
 
-  _uri = path.endsWith('/') ? _uri.slice(0, -1) : _uri
+  _uri = path.endsWith("/") ? _uri.slice(0, -1) : _uri;
 
-  return _uri || '__home__';
+  return _uri || "__home__";
 };
-

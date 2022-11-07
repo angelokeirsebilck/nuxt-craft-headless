@@ -1,0 +1,83 @@
+fragment FormFragment on FormInterface {
+  id
+  title
+  handle
+  siteId
+
+  csrfToken {
+    name
+    value
+  }
+
+  captchas {
+    handle
+    name
+    value
+  }
+
+  settings {
+    displayFormTitle
+    displayCurrentPageTitle
+    displayPageTabs
+    displayPageProgress
+    scrollToTop
+    progressPosition
+    defaultLabelPosition
+    defaultInstructionsPosition
+    submitMethod
+    submitAction
+    submitActionTab
+    submitActionFormHide
+    submitActionMessageHtml
+    submitActionMessageTimeout
+    submitActionMessagePosition
+    loadingIndicator
+    loadingIndicatorText
+    validationOnSubmit
+    validationOnFocus
+    errorMessageHtml
+    errorMessagePosition
+    redirectUrl
+
+    integrations {
+      settings
+    }
+
+    redirectEntry {
+      id
+      uri
+      slug
+      sectionHandle
+    }
+  }
+
+  pages {
+    name
+    id
+
+    settings {
+      submitButtonLabel
+      backButtonLabel
+      showBackButton
+      buttonsPosition
+    }
+
+    rows {
+      rowFields {
+        ...FieldFragment
+
+        ... on Field_Repeater {
+          fields {
+            ...FieldFragment
+          }
+        }
+
+        ... on Field_Group {
+          fields {
+            ...FieldFragment
+          }
+        }
+      }
+    }
+  }
+}

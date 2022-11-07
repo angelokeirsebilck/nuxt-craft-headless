@@ -2,6 +2,7 @@ fragment categoryContentBuilder on CategoryInterface {
   ... on projectsCat_Category {
     fieldContentBuilder {
       ...typeText
+      ...typeForm
     }
   }
 }

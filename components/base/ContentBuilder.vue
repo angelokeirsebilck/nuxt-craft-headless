@@ -18,7 +18,7 @@ defineProps<IProps>();
 
 const resolveBlockComponent = (typename: string) => {
   const instance = getCurrentInstance();
-  let blockToResolve = useFirstLetterUppercase({
+  let blockToResolve: any = useFirstLetterUppercase({
     text: typename
       .replace("fieldContentBuilder_type", "")
       .replace("_BlockType", ""),

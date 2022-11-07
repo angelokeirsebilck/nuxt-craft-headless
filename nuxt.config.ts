@@ -3,6 +3,7 @@ import { dynamicRoutes } from "./scripts/createDynamicRoutes";
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   modules: [
+    "@formkit/nuxt",
     "@nuxtjs/tailwindcss",
     "nuxt-graphql-client",
     ["@pinia/nuxt", { autoImports: ["defineStore"] }],
@@ -15,6 +16,10 @@ export default defineNuxtConfig({
       },
       {
         path: "~/components/block",
+        global: true,
+      },
+      {
+        path: "~/components/ui/input",
         global: true,
       },
       "~/components",
@@ -33,9 +38,6 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: "page", mode: "out-in" },
   },
-  router: {
-    trailingSlash: false,
-  },
   runtimeConfig: {
     // The private keys which are only available server-side
     CRAFT_CMS_GRAPHQL_ENDPOINT: "",
@@ -52,8 +54,8 @@ export default defineNuxtConfig({
         },
         clients: {
           default: {
-            host: process.env.NUXT_CRAFT_CMS_GRAPHQL_ENDPOINT || "",
-            token: process.env.NUXT_CRAFT_CMS_GRAPHQL_TOKEN || "",
+            host: process.env.NUXT_CRAFT_CMS_GRAPHQL_ENDPOINT,
+            token: process.env.NUXT_CRAFT_CMS_GRAPHQL_TOKEN,
             // retainToken: process.env.RETAIN_TOKEN === "true" || false,
           },
         },
