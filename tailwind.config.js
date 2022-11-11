@@ -1,5 +1,8 @@
+const formKitTailwind = require("@formkit/themes/tailwindcss");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  content: ["./formkit.config.js"],
   theme: {
     extend: {
       maxWidth: {
@@ -10,5 +13,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [formKitTailwind, require("@tailwindcss/forms")],
 };

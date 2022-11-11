@@ -7,5 +7,5 @@ const props = defineProps<IProps>();
 </script>
 
 <template>
-  <FormKit type="text" />
+  <FormKit type="email" />
 </template>

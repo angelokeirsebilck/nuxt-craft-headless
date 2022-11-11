@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { toPlainObject } from "lodash-es";
-import { useGetFormMutation } from "~~/composables/formie/useGetFormMutation";
-import { usetGetMutationVariables } from "~~/composables/formie/usetGetMutationVariables";
+
 interface IProps {
   handle: string;
 }
@@ -10,14 +9,15 @@ const props = defineProps<IProps>();
 const { data } = await useAsyncGql("formQuery", { handle: props.handle });
 
 const submitted = ref(false);
-const submitHandler = async (formData: any) => {
-  const formEl = document.querySelector(`#form${data?.value?.form.id}`);
+const formData = ref({});
+
+const submitHandler = async () => {
   const formMutation = useGetFormMutation(data?.value?.form);
-  const formVariables = usetGetMutationVariables(data?.value?.form, formEl);
-
-  console.log(formMutation);
+  const formVariables = usetGetMutationVariables(
+    data?.value?.form,
+    formData.value
+  );
   console.log(formVariables);
-
   const result = await $fetch("http://craft-headless-nuxt.ddev.site/api", {
     method: "POST",
     body: {
@@ -43,14 +43,16 @@ const submitHandler = async (formData: any) => {
       submit-label="Register"
       @submit="submitHandler"
       :actions="false"
-      #default="{ value }"
+      v-model="formData"
       :incomplete-message="data?.form?.settings?.errorMessageHtml"
     >
       <FormiePage
+        :formData="formData"
         :pageData="page"
         :key="pageIndex"
         v-for="(page, pageIndex) in data?.form?.pages"
       />
+
       <FormKit type="submit" label="Register" />
     </FormKit>
 

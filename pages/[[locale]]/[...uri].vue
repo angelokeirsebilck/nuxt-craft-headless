@@ -82,14 +82,14 @@ const [
 ] = await Promise.all([
   useAsyncGql("entry", {
     uri: finalUri,
-    siteId: currentSite.siteId,
+    siteId: currentSite?.siteId,
   }),
   useAsyncGql("category", {
     uri: finalUri,
-    siteId: currentSite.siteId,
+    siteId: currentSite?.siteId,
   }),
   useAsyncGql("mainNavigation", {
-    siteId: currentSite.siteId,
+    siteId: currentSite?.siteId,
   }),
 ]);
 
@@ -109,8 +109,8 @@ if (pageInfo == null) {
   });
 }
 
-siteStore.addLocale(currentSite.language);
-siteStore.addSiteId(currentSite.siteId);
+siteStore.addLocale(currentSite?.language);
+siteStore.addSiteId(currentSite?.siteId);
 siteStore.addFinalUri(finalUri);
 if (pageInfo?.localized) siteStore.addLocalized(pageInfo.localized);
 </script>

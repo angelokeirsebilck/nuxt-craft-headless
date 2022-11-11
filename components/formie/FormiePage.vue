@@ -8,6 +8,7 @@ interface IPage {
 
 interface IProps {
   pageData: IPage;
+  formData: object;
 }
 
 defineProps<IProps>();
@@ -17,6 +18,7 @@ defineProps<IProps>();
   <div>
     <div class="flex" :key="rowIndex" v-for="(row, rowIndex) in pageData.rows">
       <FormieField
+        :formData="formData"
         :field="field"
         :key="fieldIndex"
         v-for="(field, fieldIndex) in row"

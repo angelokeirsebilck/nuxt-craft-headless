@@ -34,6 +34,21 @@ fragment FieldFragment on FieldInterface {
     value
   }
 
+  ... on Field_Agree {
+    description
+    checkedValue
+    uncheckedValue
+    defaultState
+  }
+
+  ... on Field_Email {
+    placeholder
+    defaultValue
+    validateDomain
+    blockedDomains
+    uniqueValue
+  }
+
   ... on Field_MultiLineText {
     defaultValue
   }

@@ -20,9 +20,11 @@
   },
   "dependencies": {
     "@formkit/nuxt": "^1.0.0-beta.11",
+    "@formkit/themes": "^1.0.0-beta.11",
     "@headlessui/vue": "^1.7.3",
     "@heroicons/vue": "^2.0.12",
     "@pinia/nuxt": "^0.4.3",
+    "@tailwindcss/forms": "^0.5.3",
     "nuxt-graphql-client": "^0.2.8"
   },
   "resolutions": {

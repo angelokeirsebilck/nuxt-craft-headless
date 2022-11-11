@@ -25,6 +25,9 @@ export default defineNuxtConfig({
       "~/components",
     ],
   },
+  imports: {
+    dirs: ["composables/**"],
+  },
   hooks: {
     async "nitro:config"(nitroConfig) {
       if (nitroConfig.dev || !!process.env.NUXT_PRERENDER_ROUTES) {
