@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 interface IProps {
-  field: [IField];
+  field: IField;
   formData: IFormData;
 }
 interface IField {
@@ -14,25 +14,23 @@ interface IFormData {
 const props = defineProps<IProps>();
 
 const field = computed(() => {
-  return props.field[0];
+  return props.field;
 });
 
 const showField = computed(() => {
-  return useGetConditionalValue(props.field[0], props.formData);
+  return useGetConditionalValue(props.field, props.formData);
 });
 </script>
 
 <template>
-  <div>
-    <component
-      v-if="showField"
-      :fieldData="field"
-      :is="`${field.typeName.replace('Field_', '')}`"
-      :label="field.label"
-      :id="field.handle"
-      :name="field.handle"
-      :validation="useGetValidationValue(field)"
-      :validation-messages="useGetValidationMessages(field)"
-    ></component>
-  </div>
+  <component
+    v-if="showField"
+    :fieldData="field"
+    :is="`${field.typeName.replace('Field_', '')}`"
+    :label="field.label"
+    :id="field.handle"
+    :name="field.handle"
+    :validation="useGetValidationValue(field)"
+    :validation-messages="useGetValidationMessages(field)"
+  ></component>
 </template>

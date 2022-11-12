@@ -18,7 +18,7 @@ export const useGetConditionalValue = (field: any, formData: IFormData) => {
   const checks: [] = object.conditions.map((condition: ICondition) => {
     return checkCondition(condition, formData);
   });
-  console.log(checks);
+
   const result = allAreTrue(checks);
 
   return object.showRule == "show" ? result : !result;

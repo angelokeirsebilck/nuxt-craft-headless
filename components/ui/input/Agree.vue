@@ -16,7 +16,8 @@ const attrs = useAttrs();
 const attributes = computed(() => {
   return {
     ...attrs,
-    label: "WIP, formie bug (no descriptionHtml field on inline fragment)",
+    label:
+      "WIP hier komt agree label, formie bug (no descriptionHtml field on inline fragment)",
   };
 });
 </script>

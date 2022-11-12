@@ -1,0 +1,15 @@
+fragment PageFragment on PageInterface {
+  id
+  uid
+  name
+  rows {
+    ...RowFragment
+  }
+
+  pageFields {
+    ...FieldFragment
+  }
+  settings {
+    ...PageSettingsFragment
+  }
+}

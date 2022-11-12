@@ -1428,6 +1428,11 @@
     estree-walker "^2.0.2"
     picomatch "^2.3.1"
 
+"@saeris/vue-spinners@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@saeris/vue-spinners/-/vue-spinners-1.0.8.tgz#bc66975143ccfeeb60d38eb207729384804ee755"
+  integrity sha512-sSUWFVdYyAdLKuWuu+kk1ntiKt7AflqWGAsRoHkol1n2J8moFxIAwFf8RJmdPGLmdjvz8TBuXjy67NOIdhSlFg==
+
 "@tailwindcss/forms@^0.5.3":
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/@tailwindcss/forms/-/forms-0.5.3.tgz#e4d7989686cbcaf416c53f1523df5225332a86e7"
@@ -2324,6 +2329,11 @@ ci-info@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.5.0.tgz#bfac2a29263de4c829d806b1ab478e35091e171f"
   integrity sha512-yH4RezKOGlOhxkmhbeNuC4eYZKAUsEaGtBuBzDDP1eFUKiccDWzBABxBfOx31IDwDIXMTxWuwAxUGModvkbuVw==
+
+class-variance-authority@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/class-variance-authority/-/class-variance-authority-0.3.0.tgz#40c824bfbe5c604ecb3e337a2353b4b86278888e"
+  integrity sha512-TFO+pzY9Gedqv8crPhprd647wxhvfpKevPPjiMcteEWsnkHX9yZrD1xMY3ZhRZnLwHUHCCP0LYO6KZIVag/5wQ==
 
 clean-stack@^2.0.0:
   version "2.2.0"
@@ -5827,6 +5837,11 @@ readdirp@~3.6.0:
   integrity sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==
   dependencies:
     picomatch "^2.2.1"
+
+recaptcha-v3@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/recaptcha-v3/-/recaptcha-v3-1.10.0.tgz#f966b5a0d8021fd2ed85ac4be832f6acb6ec1ed1"
+  integrity sha512-aGTxYSk3FFNKnXeKDbLpgRDRyIHRZNBF5HyaXXAN1Aj4TSyyZvmoAn9CylvpqLV3pYpIQavwc+2rzhNFn5SsLQ==
 
 redis-errors@^1.0.0, redis-errors@^1.2.0:
   version "1.2.0"

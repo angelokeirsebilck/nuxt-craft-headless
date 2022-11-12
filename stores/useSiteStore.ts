@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export interface IState {
   navMain: ILink[];
   locale: string;
-  siteId: number;
+  siteId: number | null;
   localized: ILocalizd[];
   finalUri: string;
 }

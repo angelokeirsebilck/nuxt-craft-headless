@@ -52,32 +52,6 @@ fragment FormFragment on FormInterface {
   }
 
   pages {
-    name
-    id
-
-    settings {
-      submitButtonLabel
-      backButtonLabel
-      showBackButton
-      buttonsPosition
-    }
-
-    rows {
-      rowFields {
-        ...FieldFragment
-
-        ... on Field_Repeater {
-          fields {
-            ...FieldFragment
-          }
-        }
-
-        ... on Field_Group {
-          fields {
-            ...FieldFragment
-          }
-        }
-      }
-    }
+    ...PageFragment
   }
 }

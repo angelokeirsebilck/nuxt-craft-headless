@@ -9,7 +9,18 @@ module.exports = {
         container: "1536px",
       },
       colors: {
-        primary: "#457b9d",
+        primary: {
+          default: "#4ade80",
+        },
+        secondary: {
+          default: "#ffb703",
+        },
+        success: {
+          default: "#198754",
+        },
+        danger: {
+          default: "#dc3545",
+        },
       },
     },
   },

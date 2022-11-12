@@ -22,6 +22,10 @@ export default defineNuxtConfig({
         path: "~/components/ui/input",
         global: true,
       },
+      {
+        path: "~/components/ui",
+        global: true,
+      },
       "~/components",
     ],
   },
@@ -50,6 +54,7 @@ export default defineNuxtConfig({
     public: {
       CRAFT_CMS_GRAPHQL_ENDPOINT: "",
       CRAFT_CMS_GRAPHQL_TOKEN: "",
+      RECAPTCHA_SITE_KEY: "",
       "graphql-client": {
         documentPaths: ["./graphql/"],
         codegen: {

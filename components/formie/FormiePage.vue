@@ -8,21 +8,49 @@ interface IPage {
 
 interface IProps {
   pageData: IPage;
-  formData: object;
+  formData: IFormData;
+  isSubmitting: boolean;
+  settings: object;
 }
 
-defineProps<IProps>();
+interface IFormData {
+  [key: string]: string | number;
+}
+
+const props = defineProps<IProps>();
+
+const submitting = computed(() => {
+  return props.isSubmitting;
+});
 </script>
 
 <template>
-  <div>
-    <div class="flex" :key="rowIndex" v-for="(row, rowIndex) in pageData.rows">
+  <div class="">
+    <div
+      class="flex w-full gap-4"
+      :key="rowIndex"
+      v-for="(row, rowIndex) in pageData.rows"
+    >
       <FormieField
         :formData="formData"
         :field="field"
         :key="fieldIndex"
-        v-for="(field, fieldIndex) in row"
+        v-for="(field, fieldIndex) in row?.rowFields"
       />
     </div>
+    <FormKit
+      type="submit"
+      :input-class="{
+        'pointer-events-none cursor-auto': isSubmitting,
+      }"
+    >
+      <Button
+        intent="primary"
+        :loadingIndicator="settings.loadingIndicator"
+        :loadingIndicatorText="settings.loadingIndicatorText"
+        :is-submitting="submitting"
+        :label="pageData.settings?.submitButtonLabel"
+      />
+    </FormKit>
   </div>
 </template>
