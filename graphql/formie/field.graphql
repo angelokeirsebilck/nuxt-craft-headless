@@ -36,6 +36,7 @@ fragment FieldFragment on FieldInterface {
 
   ... on Field_Agree {
     description
+    descriptionHtml
     checkedValue
     uncheckedValue
     defaultState

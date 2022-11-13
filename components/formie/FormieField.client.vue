@@ -13,24 +13,27 @@ interface IFormData {
 
 const props = defineProps<IProps>();
 
-const field = computed(() => {
-  return props.field;
-});
-
 const showField = computed(() => {
   return useGetConditionalValue(props.field, props.formData);
+});
+
+const labelValue = computed(() => {
+  if (props.field.labelPosition !== "verbb\\formie\\positions\\Hidden")
+    return props.field.label;
+  return false;
 });
 </script>
 
 <template>
   <component
-    v-if="showField"
+    v-if="showField && field.visibility !== 'hidden'"
     :fieldData="field"
     :is="`${field.typeName.replace('Field_', '')}`"
-    :label="field.label"
+    :label="labelValue"
     :id="field.handle"
     :name="field.handle"
     :validation="useGetValidationValue(field)"
     :validation-messages="useGetValidationMessages(field)"
+    :value="usetGetDefaultValue(field)"
   ></component>
 </template>

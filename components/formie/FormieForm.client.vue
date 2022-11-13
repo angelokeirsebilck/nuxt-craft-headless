@@ -2,6 +2,7 @@
 import { toPlainObject } from "lodash-es";
 import { load } from "recaptcha-v3";
 import { setErrors, clearErrors, reset } from "@formkit/vue";
+import { useSiteStore } from "@/stores/useSiteStore";
 interface IProps {
   handle: string;
 }
@@ -12,11 +13,12 @@ interface IFormData {
 const config = useRuntimeConfig();
 const props = defineProps<IProps>();
 const { data } = await useAsyncGql("formQuery", { handle: props.handle });
-import { useSiteStore } from "@/stores/useSiteStore";
 const siteStore = useSiteStore();
 
 const form = ref(data?.value?.form);
+
 const formData = ref({});
+
 const formState = reactive({
   submitted: false,
   showErrors: false,

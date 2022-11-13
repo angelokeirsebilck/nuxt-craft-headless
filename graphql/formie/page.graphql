@@ -6,9 +6,6 @@ fragment PageFragment on PageInterface {
     ...RowFragment
   }
 
-  pageFields {
-    ...FieldFragment
-  }
   settings {
     ...PageSettingsFragment
   }
