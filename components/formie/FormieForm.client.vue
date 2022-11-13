@@ -12,6 +12,8 @@ interface IFormData {
 const config = useRuntimeConfig();
 const props = defineProps<IProps>();
 const { data } = await useAsyncGql("formQuery", { handle: props.handle });
+import { useSiteStore } from "@/stores/useSiteStore";
+const siteStore = useSiteStore();
 
 const form = ref(data?.value?.form);
 const formData = ref({});
@@ -36,15 +38,18 @@ function upsert(array: [], element: object) {
 
 const submitHandler = async (formData: IFormData) => {
   formState.isSubmitting = true;
+
   const recaptcha = await load(config.public.RECAPTCHA_SITE_KEY);
   const token = await recaptcha.execute();
 
-  // Only add recpatchaToken if it does not yet exist
-  upsert(form.value.captchas, {
-    handle: "recaptchaCaptcha",
-    name: "g-recaptcha-response",
-    value: token,
-  });
+  if (token) {
+    // Only add recpatchaToken if it does not yet exist
+    upsert(form.value.captchas, {
+      handle: "recaptchaCaptcha",
+      name: "g-recaptcha-response",
+      value: token,
+    });
+  }
 
   const formMutation = useGetFormMutation(data?.value?.form);
   const formVariables = usetGetMutationVariables(data?.value?.form, formData);
@@ -61,10 +66,26 @@ const submitHandler = async (formData: IFormData) => {
         Authorization: `Bearer ${config.CRAFT_CMS_GRAPHQL_TOKEN}`,
       },
     });
+
     formState.submitted = true;
     formState.showErrors = false;
     formState.isSubmitting = false;
     reset(`form${data?.value?.form?.id}`);
+
+    if (settings.value?.submitAction == "entry") {
+      const { uri } = settings.value.redirectEntry;
+      if (uri) await navigateTo(`/${siteStore.locale}/${uri}`);
+    }
+
+    if (settings.value?.submitAction == "url") {
+      if (settings.value.submitActionTab == "same-tab") {
+        await navigateTo(`${settings.value.redirectUrl}`, {
+          external: true,
+        });
+      } else {
+        window.open(`${settings.value.redirectUrl}`, "_blank");
+      }
+    }
 
     console.log(result);
   } catch (error) {
@@ -91,6 +112,11 @@ const successMessageTop = computed(() => {
     return false;
   return true;
 });
+
+const validationVisibility = computed(() => {
+  if (settings.value?.validationOnFocus) return "blur";
+  return "submit";
+});
 </script>
 
 <template>
@@ -109,7 +135,7 @@ const successMessageTop = computed(() => {
         successMessageTop &&
         settings?.submitAction == 'message'
       "
-      >test
+      >{{ settings?.submitActionMessageHtml }}
     </Alert>
     <FormKit
       type="form"
@@ -119,12 +145,12 @@ const successMessageTop = computed(() => {
           ? 'hidden'
           : 'block'
       "
-      submit-label="Register"
       @submit-invalid="invalidHandler"
       @submit="submitHandler"
       :actions="false"
       v-model="formData"
       :incomplete-message="false"
+      :config="{ validationVisibility }"
     >
       <FormiePage
         :isSubmitting="formState.isSubmitting"
@@ -149,7 +175,7 @@ const successMessageTop = computed(() => {
         !successMessageTop &&
         settings?.submitAction == 'message'
       "
-      >test
+      >{{ settings?.submitActionMessageHtml }}
     </Alert>
   </div>
 </template>
