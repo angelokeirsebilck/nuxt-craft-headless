@@ -9,4 +9,3 @@
     - Only submit when logged in as a craft user
   - Fields
     - Label position (atm only visible - hidden)
-    - Default value

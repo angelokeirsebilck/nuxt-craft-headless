@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toPlainObject } from "lodash-es";
 import { load } from "recaptcha-v3";
-import { setErrors, clearErrors, reset } from "@formkit/vue";
+import { reset } from "@formkit/vue";
 import { useSiteStore } from "@/stores/useSiteStore";
 interface IProps {
   handle: string;

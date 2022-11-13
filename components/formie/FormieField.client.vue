@@ -35,5 +35,6 @@ const labelValue = computed(() => {
     :validation="useGetValidationValue(field)"
     :validation-messages="useGetValidationMessages(field)"
     :value="usetGetDefaultValue(field)"
+    :placeholder="field.placeholder"
   ></component>
 </template>

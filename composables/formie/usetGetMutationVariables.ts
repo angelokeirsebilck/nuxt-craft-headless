@@ -6,15 +6,18 @@ interface IFormData {
 }
 
 export const usetGetMutationVariables = (form: any, object: IFormData) => {
-  console.log(form);
   let returnObject: any[] = [];
   // Get the mutation types to ensure we cast everything properly
   const mutationTypes = useGetFormFieldMeta(form);
 
   mutationTypes.forEach((info) => {
     let value = object[info.handle];
-    console.log(info.inputTypeName);
+
     if (typeof value === "undefined") {
+      return;
+    }
+
+    if (value === null) {
       return;
     }
 

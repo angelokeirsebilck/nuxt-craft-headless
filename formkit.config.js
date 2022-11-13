@@ -33,8 +33,9 @@ export default {
         input: defaultClasses.defaultInputs.input,
       },
       checkbox: {
+        wrapper: "flex items-center",
         input:
-          "formkit-invalid:border-red-500 checked:bg-primary-default text-primary-default",
+          "formkit-invalid:border-red-500 checked:bg-primary-default text-primary-default mr-2",
       },
     }),
   },
