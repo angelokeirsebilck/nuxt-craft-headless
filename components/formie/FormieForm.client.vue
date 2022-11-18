@@ -54,9 +54,12 @@ const submitHandler = async (formData: IFormData) => {
   }
 
   const formMutation = useGetFormMutation(data?.value?.form);
-  const formVariables = usetGetMutationVariables(data?.value?.form, formData);
-
-  console.log(formVariables);
+  const formVariables = await usetGetMutationVariables(
+    data?.value?.form,
+    formData
+  );
+  // console.log(formMutation);
+  // console.log(formVariables);
 
   try {
     const result = await $fetch(config.CRAFT_CMS_GRAPHQL_ENDPOINT, {

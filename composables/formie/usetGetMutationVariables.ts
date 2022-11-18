@@ -5,20 +5,27 @@ interface IFormData {
   [key: string]: string | number | any;
 }
 
-export const usetGetMutationVariables = (form: any, object: IFormData) => {
+export const usetGetMutationVariables = async (
+  form: any,
+  object: IFormData
+) => {
   let returnObject: any[] = [];
+
   // Get the mutation types to ensure we cast everything properly
   const mutationTypes = useGetFormFieldMeta(form);
 
-  mutationTypes.forEach((info) => {
-    let value = object[info.handle];
+  for (let index = 0; index < mutationTypes.length; index++) {
+    const inputTypeName = mutationTypes[index]["inputTypeName"];
+    const handle = mutationTypes[index]["handle"];
+
+    let value = object[handle];
 
     if (typeof value === "undefined") {
-      return;
+      continue;
     }
 
     if (value === null) {
-      return;
+      continue;
     }
 
     // Fix up any objects that look like arrays
@@ -28,11 +35,11 @@ export const usetGetMutationVariables = (form: any, object: IFormData) => {
       }
     }
 
-    if (info.inputTypeName === "Int") {
-      value = parseInt(object[info.handle], 10);
+    if (inputTypeName === "Int") {
+      value = parseInt(object[handle], 10);
     }
 
-    if (info.inputTypeName === "[Int]") {
+    if (inputTypeName === "[Int]") {
       if (isPlainObject(value)) {
         value = Object.values(value);
       }
@@ -42,11 +49,11 @@ export const usetGetMutationVariables = (form: any, object: IFormData) => {
       });
     }
 
-    if (info.inputTypeName === "Number") {
-      value = Number(object[info.handle]);
+    if (inputTypeName === "Number") {
+      value = Number(object[handle]);
     }
 
-    if (info.inputTypeName === "[Number]") {
+    if (inputTypeName === "[Number]") {
       if (isPlainObject(value)) {
         value = Object.values(value);
       }
@@ -56,19 +63,27 @@ export const usetGetMutationVariables = (form: any, object: IFormData) => {
       });
     }
 
-    if (info.inputTypeName === "String") {
-      value = object[info.handle].toString();
+    if (inputTypeName === "String") {
+      value = object[handle].toString();
     }
 
-    if (info.inputTypeName === "[String]") {
+    if (inputTypeName === "[String]") {
       if (isPlainObject(value)) {
         value = Object.values(value);
       }
       value = value.filter((item: any) => item !== undefined);
     }
 
-    returnObject[info.handle] = value;
-  });
+    if (inputTypeName === "[FileUploadInput]") {
+      value = await Promise.all(
+        value.map((f: any) => {
+          return readAsDataURL(f.file);
+        })
+      );
+    }
+
+    returnObject[handle] = value;
+  }
 
   // Add in any captcha tokens generated when we queried the form.
   form.captchas.forEach((captcha: any) => {
@@ -80,3 +95,17 @@ export const usetGetMutationVariables = (form: any, object: IFormData) => {
 
   return returnObject;
 };
+
+function readAsDataURL(file: any) {
+  return new Promise((resolve, reject) => {
+    let fileReader = new FileReader();
+    fileReader.onload = function () {
+      console.log(fileReader.result);
+      return resolve({
+        fileData: fileReader.result,
+        filename: file.name
+      });
+    };
+    fileReader.readAsDataURL(file);
+  });
+}

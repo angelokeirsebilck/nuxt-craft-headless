@@ -5,19 +5,18 @@ export interface IPageInfo {
 }
 
 import { getCurrentInstance } from "vue";
-import { useFirstLetterUppercase } from "~/composables/useFirstLetterUppercase";
 
 export const useResolvePageComponent = (params: IPageInfo) => {
   const instance = getCurrentInstance();
   const sectionHandle = useFirstLetterUppercase({
-    text: params?.sectionHandle,
+    text: params?.sectionHandle
   });
   const typeHandle = useFirstLetterUppercase({
-    text: params?.typeHandle,
+    text: params?.typeHandle
   });
 
   const groupHandle = useFirstLetterUppercase({
-    text: params?.groupHandle,
+    text: params?.groupHandle
   });
 
   let compToResolve = null;
@@ -44,6 +43,6 @@ export const useResolvePageComponent = (params: IPageInfo) => {
     statusMessage: "Internal Server Error",
     name: "Internal Server Error",
     fatal: true,
-    statusCode: 500,
+    statusCode: 500
   });
 };

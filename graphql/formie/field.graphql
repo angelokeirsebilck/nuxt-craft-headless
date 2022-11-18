@@ -71,4 +71,12 @@ fragment FieldFragment on FieldInterface {
     }
     layout
   }
+
+  ... on Field_FileUpload {
+    uploadLocationSource
+    uploadLocationSubpath
+    limitFiles
+    sizeLimit
+    allowedKinds
+  }
 }
