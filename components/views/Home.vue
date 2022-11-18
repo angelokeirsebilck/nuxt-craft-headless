@@ -1,7 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div>Component: views/Home</div>
+  <div class="">Component: views/Home qzdqzdzq</div>
 </template>
 
 <style scoped></style>

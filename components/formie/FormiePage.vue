@@ -3,7 +3,7 @@ interface IPage {
   id: number;
   name: string | undefined | null;
   rows: Object[];
-  settings: Object;
+  settings: any;
 }
 
 interface IProps {
@@ -32,6 +32,7 @@ const submitting = computed(() => {
       v-for="(row, rowIndex) in pageData.rows"
     >
       <FormieField
+        :settings="settings"
         :formData="formData"
         :field="field"
         :key="fieldIndex"
@@ -41,7 +42,7 @@ const submitting = computed(() => {
     <FormKit
       type="submit"
       :input-class="{
-        'pointer-events-none cursor-auto': isSubmitting,
+        'pointer-events-none cursor-auto': isSubmitting
       }"
     >
       <Button

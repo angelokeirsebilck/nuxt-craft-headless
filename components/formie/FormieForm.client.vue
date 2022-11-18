@@ -22,7 +22,7 @@ const formData = ref({});
 const formState = reactive({
   submitted: false,
   showErrors: false,
-  isSubmitting: false,
+  isSubmitting: false
 });
 
 // Add element if it does not yet exist
@@ -49,24 +49,26 @@ const submitHandler = async (formData: IFormData) => {
     upsert(form.value.captchas, {
       handle: "recaptchaCaptcha",
       name: "g-recaptcha-response",
-      value: token,
+      value: token
     });
   }
 
   const formMutation = useGetFormMutation(data?.value?.form);
   const formVariables = usetGetMutationVariables(data?.value?.form, formData);
 
+  console.log(formVariables);
+
   try {
     const result = await $fetch(config.CRAFT_CMS_GRAPHQL_ENDPOINT, {
       method: "POST",
       body: {
         query: formMutation,
-        variables: toPlainObject(formVariables),
+        variables: toPlainObject(formVariables)
       },
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${config.CRAFT_CMS_GRAPHQL_TOKEN}`,
-      },
+        Authorization: `Bearer ${config.CRAFT_CMS_GRAPHQL_TOKEN}`
+      }
     });
 
     formState.submitted = true;
@@ -82,7 +84,7 @@ const submitHandler = async (formData: IFormData) => {
     if (settings.value?.submitAction == "url") {
       if (settings.value.submitActionTab == "same-tab") {
         await navigateTo(`${settings.value.redirectUrl}`, {
-          external: true,
+          external: true
         });
       } else {
         window.open(`${settings.value.redirectUrl}`, "_blank");

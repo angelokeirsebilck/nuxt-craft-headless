@@ -5,15 +5,15 @@ const button = cva("px-6 py-3 relative", {
   variants: {
     intent: {
       primary: "bg-primary-default",
-      secondary: "bg-secondary-default",
-    },
+      secondary: "bg-secondary-default"
+    }
   },
   defaultVariants: {
-    intent: "primary",
-  },
+    intent: "primary"
+  }
 });
 
-type ButtonProps = VariantProps<typeof alert>;
+type ButtonProps = VariantProps<typeof button>;
 
 interface IButtonProps {
   intent: ButtonProps["intent"];
@@ -24,7 +24,7 @@ interface IButtonProps {
 }
 
 withDefaults(defineProps<IButtonProps>(), {
-  isSubmitting: false,
+  isSubmitting: false
 });
 </script>
 
@@ -33,8 +33,8 @@ withDefaults(defineProps<IButtonProps>(), {
     :class="[
       button({ intent }),
       {
-        'bg-opacity-40': isSubmitting,
-      },
+        'bg-opacity-40': isSubmitting
+      }
     ]"
   >
     <div :class="{ 'opacity-0': isSubmitting }">{{ label }}</div>
@@ -49,7 +49,7 @@ withDefaults(defineProps<IButtonProps>(), {
     </div>
   </div>
 </template>
-<style>
+<style scoped>
 .loader,
 .loader:after {
   border-radius: 50%;

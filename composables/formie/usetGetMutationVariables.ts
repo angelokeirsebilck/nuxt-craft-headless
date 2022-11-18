@@ -60,6 +60,13 @@ export const usetGetMutationVariables = (form: any, object: IFormData) => {
       value = object[info.handle].toString();
     }
 
+    if (info.inputTypeName === "[String]") {
+      if (isPlainObject(value)) {
+        value = Object.values(value);
+      }
+      value = value.filter((item: any) => item !== undefined);
+    }
+
     returnObject[info.handle] = value;
   });
 
@@ -67,7 +74,7 @@ export const usetGetMutationVariables = (form: any, object: IFormData) => {
   form.captchas.forEach((captcha: any) => {
     returnObject[captcha.handle] = {
       name: captcha.name,
-      value: captcha.value,
+      value: captcha.value
     };
   });
 

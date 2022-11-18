@@ -57,4 +57,18 @@ fragment FieldFragment on FieldInterface {
   ... on Field_SingleLineText {
     defaultValue
   }
+
+  ... on Field_Radio {
+    options {
+      ...FieldOption
+    }
+    layout
+  }
+
+  ... on Field_Checkboxes {
+    options {
+      ...FieldOption
+    }
+    layout
+  }
 }
