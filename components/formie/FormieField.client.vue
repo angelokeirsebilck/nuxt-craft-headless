@@ -38,23 +38,6 @@ const instructionsAboveInput = computed(() => {
 
   return fieldInstructionPosition;
 });
-
-const options = computed(() => {
-  const fieldType = props.field.typeName.replace("Field_", "");
-  if (props.field.options) {
-    return props.field.options.map((option: any) => {
-      return {
-        label: option.label,
-        value: option.value
-        // attrs:{
-        //   disabled: option.diabled
-        // }
-      };
-    });
-  }
-
-  return false;
-});
 </script>
 
 <template>
@@ -78,7 +61,6 @@ const options = computed(() => {
       :validation-messages="useGetValidationMessages(field)"
       :value="usetGetDefaultValue(field)"
       :placeholder="field.placeholder"
-      :options="options"
       :help="
         instructionsAboveInput == 'BelowInput' && field.instructions !== null
           ? field.instructions

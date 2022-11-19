@@ -3,7 +3,11 @@ interface IField {
 }
 
 export const usetGetDefaultValue = (field: IField) => {
-  if (field.defaultValue == null && !field.options) return null;
+  if (
+    (field.defaultValue == null || field.defaultValue == "") &&
+    !field.options
+  )
+    return null;
 
   switch (useGetFieldName(field.typeName)) {
     case "SingleLineText":

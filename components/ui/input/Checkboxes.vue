@@ -7,5 +7,6 @@ const props = defineProps<IProps>();
 </script>
 
 <template>
-  <FormKit type="checkbox"> </FormKit>
+  <FormKit type="checkbox" :options="useGetOptions(props.fieldData.options)">
+  </FormKit>
 </template>
