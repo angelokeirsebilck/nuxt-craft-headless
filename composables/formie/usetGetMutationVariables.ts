@@ -100,7 +100,6 @@ function readAsDataURL(file: any) {
   return new Promise((resolve, reject) => {
     let fileReader = new FileReader();
     fileReader.onload = function () {
-      console.log(fileReader.result);
       return resolve({
         fileData: fileReader.result,
         filename: file.name

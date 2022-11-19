@@ -13,4 +13,8 @@
   - SingleLineText
     - Limit value
     - Match field
-  - Phone regex validation
+  - Phone
+    - Regex validation
+  - File Upload
+    - Max file sizen
+    - Limit files
