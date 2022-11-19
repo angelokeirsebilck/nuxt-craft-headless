@@ -2,7 +2,9 @@
   <div>
     <NuxtLayout>
       <NuxtLoadingIndicator />
-      <NuxtPage />
+      <Html lang="nl">
+        <NuxtPage />
+      </Html>
     </NuxtLayout>
   </div>
 </template>

@@ -6,23 +6,26 @@ module.exports = {
   theme: {
     extend: {
       maxWidth: {
-        container: "1536px",
+        container: "1536px"
       },
       colors: {
         primary: {
-          default: "#4ade80",
+          default: "#4ade80"
         },
         secondary: {
-          default: "#ffb703",
+          default: "#ffb703"
         },
         success: {
-          default: "#198754",
+          default: "#198754"
         },
-        danger: {
-          default: "#dc3545",
+        error: {
+          default: "#dc3545"
         },
-      },
-    },
+        black: {
+          default: "#000"
+        }
+      }
+    }
   },
-  plugins: [formKitTailwind, require("@tailwindcss/forms")],
+  plugins: [formKitTailwind, require("@tailwindcss/forms")]
 };

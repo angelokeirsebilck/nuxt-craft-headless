@@ -2,7 +2,7 @@
 interface IPage {
   id: number;
   name: string | undefined | null;
-  rows: Object[];
+  rows: any;
   settings: any;
 }
 
@@ -10,7 +10,7 @@ interface IProps {
   pageData: IPage;
   formData: IFormData;
   isSubmitting: boolean;
-  settings: object;
+  settings: any;
 }
 
 interface IFormData {
@@ -27,7 +27,7 @@ const submitting = computed(() => {
 <template>
   <div class="">
     <div
-      class="flex w-full gap-4"
+      class="flex flex-col w-full mb-6 md:flex-row md:gap-x-4 gap-y-6"
       :key="rowIndex"
       v-for="(row, rowIndex) in pageData.rows"
     >

@@ -41,7 +41,7 @@ const instructionsAboveInput = computed(() => {
 </script>
 
 <template>
-  <div>
+  <div class="w-full">
     <div
       :class="defaultClasses.defaultInputs.help"
       v-if="

@@ -7,12 +7,12 @@ const alert = cva("p-2 bg-opacity-20", {
   variants: {
     intent: {
       success: "bg-success-default  border-success-default border",
-      danger: "bg-danger-default  border-danger-default border",
-    },
+      danger: "bg-error-default  border-error-default border"
+    }
   },
   defaultVariants: {
-    intent: "danger",
-  },
+    intent: "danger"
+  }
 });
 
 type AlertProps = VariantProps<typeof alert>;
