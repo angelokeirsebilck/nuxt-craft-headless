@@ -7,6 +7,10 @@ const props = defineProps<IProps>();
 </script>
 
 <template>
-  <FormKit type="radio" :options="useGetOptions(props.fieldData.options)">
+  <FormKit
+    type="radio"
+    class="test"
+    :options="useGetOptions(props.fieldData.options)"
+  >
   </FormKit>
 </template>

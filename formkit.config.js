@@ -8,6 +8,14 @@ export const defaultClasses = {
     label: "block mb-1 font-medium formkit-invalid:text-red-500",
 
     help: "text-sm text-gray-800 mt-1"
+  },
+  defaultOptions: {
+    wrapper: "flex items-center",
+    options:
+      "group-[.layout-horizontal]:flex  group-[.layout-horizontal]:flex-wrap group-[.layout-horizontal]:gap-2",
+    input:
+      "formkit-invalid:border-red-500 checked:bg-primary-default text-primary-default mr-2",
+    inner: "transform -translate-y-[2px]"
   }
 };
 
@@ -35,16 +43,10 @@ export default {
         ...defaultClasses.defaultInputs
       },
       checkbox: {
-        wrapper: "flex items-center",
-        input:
-          "formkit-invalid:border-red-500 checked:bg-primary-default text-primary-default mr-2",
-        inner: "transform -translate-y-[2px]"
+        ...defaultClasses.defaultOptions
       },
       radio: {
-        wrapper: "flex items-center",
-        input:
-          "formkit-invalid:border-red-500 checked:bg-primary-default text-primary-default mr-2",
-        inner: "transform -translate-y-[2px]"
+        ...defaultClasses.defaultOptions
       },
       file: {
         outer: "w-full",

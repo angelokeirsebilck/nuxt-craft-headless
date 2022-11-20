@@ -79,4 +79,21 @@ fragment FieldFragment on FieldInterface {
     sizeLimit
     allowedKinds
   }
+
+  ... on Field_Categories {
+    placeholder
+    branchLimit
+    categories {
+      id
+      title
+      groupHandle
+      siteId
+      level
+      localized {
+        siteId
+        uri
+        language
+      }
+    }
+  }
 }

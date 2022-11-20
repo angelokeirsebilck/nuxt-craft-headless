@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { fieldset } from "@formkit/inputs";
 import { defaultClasses } from "../../formkit.config";
 
 interface IProps {
@@ -38,10 +39,18 @@ const instructionsAboveInput = computed(() => {
 
   return fieldInstructionPosition;
 });
+
+const extraClasses = computed((): string => {
+  let extraClasses = "";
+  if (props.field.layout && props.field.layout == "horizontal")
+    extraClasses += " layout-horizontal";
+
+  return extraClasses;
+});
 </script>
 
 <template>
-  <div class="w-full">
+  <div class="w-full group" :class="extraClasses">
     <div
       :class="defaultClasses.defaultInputs.help"
       v-if="
