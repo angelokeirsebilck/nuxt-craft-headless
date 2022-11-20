@@ -16,7 +16,7 @@ interface IProps {
 defineProps<IProps>();
 </script>
 <template>
-  <div class="default-grid">
+  <div class="my-24 default-grid">
     <div class="order-2 col-span-full lg:col-span-7 lg:order-1">
       <FormieForm :handle="blockData.itemForm[0].handle" />
     </div>

@@ -5,8 +5,7 @@ export const defaultClasses = {
     outer: "formkit-disabled:opacity-40 w-full",
     input:
       "w-full border border-black-default  py-2 formkit-invalid:border-red-500 shadow-none focus:ring-0 focus:ring-primary-default focus:border-primary-default text-base text-black-default placeholder-gray-400",
-    label: "block mb-1 font-medium formkit-invalid:text-red-500",
-
+    label: "block mb-1 text-lg font-medium formkit-invalid:text-red-500",
     help: "text-sm text-gray-800 mt-1"
   },
   defaultOptions: {
@@ -30,7 +29,7 @@ export default {
           "focus:shadow-none focus:outline-0 focus:ring-0 focus:ring-offset-0",
         input:
           "focus:shadow-none focus:outline-0 focus:ring-0 focus:ring-offset-0",
-        legend: "block mb-1 font-medium formkit-invalid:text-red-500"
+        legend: "block mb-1 text-lg font-medium formkit-invalid:text-red-500"
       },
       submit: {},
       text: {
@@ -49,6 +48,7 @@ export default {
         ...defaultClasses.defaultOptions
       },
       file: {
+        label: "block mb-1 text-lg font-medium formkit-invalid:text-red-500",
         outer: "w-full",
         noFiles: "pointer-events-none text-gray-400",
         inner:

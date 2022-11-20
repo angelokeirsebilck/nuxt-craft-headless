@@ -1,22 +1,6 @@
 <script setup lang="ts">
-import { cva, type VariantProps } from "class-variance-authority";
-
-const button = cva("px-6 py-3 relative", {
-  variants: {
-    intent: {
-      primary: "bg-primary-default",
-      secondary: "bg-secondary-default"
-    }
-  },
-  defaultVariants: {
-    intent: "primary"
-  }
-});
-
-type ButtonProps = VariantProps<typeof button>;
-
 interface IButtonProps {
-  intent: ButtonProps["intent"];
+  intent: "primary" | "secondary";
   label: string;
   isSubmitting?: boolean;
   loadingIndicator?: string | null;
@@ -31,7 +15,7 @@ withDefaults(defineProps<IButtonProps>(), {
 <template>
   <div
     :class="[
-      button({ intent }),
+      useGetButtonStyle({ intent }),
       {
         'bg-opacity-40': isSubmitting
       }
