@@ -6,7 +6,7 @@ export const defaultClasses = {
     input:
       "w-full border border-black-default  py-2 formkit-invalid:border-red-500 shadow-none focus:ring-0 focus:ring-primary-default focus:border-primary-default text-base text-black-default placeholder-gray-400",
     label: "block mb-1 text-lg font-medium formkit-invalid:text-red-500",
-    help: "text-sm text-gray-800 mt-1"
+    help: "text-gray-800 mt-1"
   },
   defaultOptions: {
     wrapper: "flex items-center",
@@ -24,7 +24,7 @@ export default {
       global: {
         // applies to all input types
         messages: "list-none p-0 mt-1 mb-0",
-        message: "text-red-500 mb-1 text-xs",
+        message: "text-red-500 mb-1 text-sm",
         inner:
           "focus:shadow-none focus:outline-0 focus:ring-0 focus:ring-offset-0",
         input:
