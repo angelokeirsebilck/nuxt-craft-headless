@@ -147,11 +147,10 @@ const validationVisibility = computed(() => {
     <FormKit
       type="form"
       :id="`form${data?.form?.id}`"
-      :form-class="
-        formState.submitted && settings?.submitActionFormHide
-          ? 'hidden'
-          : 'block'
-      "
+      :form-class="[
+        formState.submitted && settings?.submitActionFormHide ? 'hidden' : '',
+        'mt-4'
+      ]"
       @submit-invalid="invalidHandler"
       @submit="submitHandler"
       :actions="false"

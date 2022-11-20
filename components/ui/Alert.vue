@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 const show = ref(true);
 
-const alert = cva("p-2 bg-opacity-20", {
+const alert = cva("p-2 bg-opacity-20 mb-4", {
   variants: {
     intent: {
       success: "bg-success-default  border-success-default border",
