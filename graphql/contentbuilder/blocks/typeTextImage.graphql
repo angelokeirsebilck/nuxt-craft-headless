@@ -1,0 +1,10 @@
+fragment typeTextImage on MatrixBlockInterface {
+  ... on fieldContentBuilder_typeTextImage_BlockType {
+    __typename
+    id
+    itemText
+    itemImage {
+      url
+    }
+  }
+}

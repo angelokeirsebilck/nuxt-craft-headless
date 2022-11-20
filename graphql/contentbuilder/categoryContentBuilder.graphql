@@ -3,6 +3,7 @@ fragment categoryContentBuilder on CategoryInterface {
     fieldContentBuilder {
       ...typeText
       ...typeForm
+      ...typeTextImage
     }
   }
 }

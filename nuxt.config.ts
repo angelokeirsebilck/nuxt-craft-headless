@@ -7,30 +7,31 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "nuxt-graphql-client",
     ["@pinia/nuxt", { autoImports: ["defineStore"] }],
+    "@nuxt/image-edge"
   ],
   components: {
     dirs: [
       {
         path: "~/components/views",
-        global: true,
+        global: true
       },
       {
         path: "~/components/block",
-        global: true,
+        global: true
       },
       {
         path: "~/components/ui/input",
-        global: true,
+        global: true
       },
       {
         path: "~/components/ui",
-        global: true,
+        global: true
       },
-      "~/components",
-    ],
+      "~/components"
+    ]
   },
   imports: {
-    dirs: ["composables/**"],
+    dirs: ["composables/**"]
   },
   hooks: {
     async "nitro:config"(nitroConfig) {
@@ -40,10 +41,10 @@ export default defineNuxtConfig({
 
       const routes = await dynamicRoutes();
       nitroConfig.prerender.routes = [...routes];
-    },
+    }
   },
   app: {
-    pageTransition: { name: "page", mode: "out-in" },
+    pageTransition: { name: "page", mode: "out-in" }
   },
   runtimeConfig: {
     // The private keys which are only available server-side
@@ -58,16 +59,19 @@ export default defineNuxtConfig({
       "graphql-client": {
         documentPaths: ["./graphql/"],
         codegen: {
-          onlyOperationTypes: true,
+          onlyOperationTypes: true
         },
         clients: {
           default: {
             host: process.env.NUXT_CRAFT_CMS_GRAPHQL_ENDPOINT,
-            token: process.env.NUXT_CRAFT_CMS_GRAPHQL_TOKEN,
+            token: process.env.NUXT_CRAFT_CMS_GRAPHQL_TOKEN
             // retainToken: process.env.RETAIN_TOKEN === "true" || false,
-          },
-        },
-      },
-    },
+          }
+        }
+      }
+    }
   },
+  image: {
+    domains: ["test.headless.boawebdesign.be"]
+  }
 });

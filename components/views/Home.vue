@@ -1,7 +1,20 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useSiteStore } from "~/stores/useSiteStore";
+const siteStore = useSiteStore();
+
+const { data } = await useAsyncGql("home", {
+  siteId: siteStore.siteId
+});
+
+const contentBuilderData = computed(() => {
+  return data?.value?.entry?.fieldContentBuilder;
+});
+</script>
 
 <template>
-  <div class="">Component: views/Home qzdqzdzq</div>
+  <div>Component: views/Home</div>
+  <BaseContentBuilder
+    :content="contentBuilderData"
+    v-show="contentBuilderData"
+  />
 </template>
-
-<style scoped></style>

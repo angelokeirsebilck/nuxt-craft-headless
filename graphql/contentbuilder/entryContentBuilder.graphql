@@ -3,18 +3,21 @@ fragment entryContentBuilder on EntryInterface {
     fieldContentBuilder {
       ...typeText
       ...typeForm
+      ...typeTextImage
     }
   }
   ... on pages_contact_Entry {
     fieldContentBuilder {
       ...typeText
       ...typeForm
+      ...typeTextImage
     }
   }
   ... on home_home_Entry {
     fieldContentBuilder {
       ...typeText
       ...typeForm
+      ...typeTextImage
     }
   }
 }

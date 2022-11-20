@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import { pagesDefaultQuery } from "~~/graphql/views/pages/default.gql";
 import { useSiteStore } from "~/stores/useSiteStore";
 const siteStore = useSiteStore();
 
 const { data } = await useAsyncGql("pagesDefault", {
   siteId: siteStore.siteId,
-  uri: siteStore.finalUri,
+  uri: siteStore.finalUri
 });
 
 const contentBuilderData = computed(() => {

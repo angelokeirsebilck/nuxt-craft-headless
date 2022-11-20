@@ -1,0 +1,8 @@
+query home($siteId: [QueryArgument]!) {
+  entry(siteId: $siteId) {
+    ... on home_home_Entry {
+      id
+      ...entryContentBuilder
+    }
+  }
+}
